@@ -493,12 +493,12 @@
             <span class="text-accent-red font-semibold text-lg">What We Do</span>
             <h2 class="section-h2 text-primary-dark mt-2 mb-12">Our Expert Services</h2>
             
-            <!-- NEW: Mobile-first horizontal scroll -->
-            <div class="flex overflow-x-auto space-x-6 p-4 -m-4 lg:grid lg:grid-cols-3 lg:gap-8 lg:max-w-6xl lg:mx-auto lg:space-x-0 lg:p-0 lg:m-0 hide-scrollbar">
+            <!-- NEW: Mobile-first horizontal scroll, switches to grid on md -->
+            <div class="flex overflow-x-auto space-x-6 p-4 -m-4 md:grid md:grid-cols-3 md:gap-8 md:max-w-6xl md:mx-auto md:space-x-0 md:p-0 md:m-0 hide-scrollbar">
                 
                 <!-- Service Card 1: Electrical Services -->
-                <!-- NEW: Added mobile sizing and flex-shrink -->
-                <div class="w-4/5 sm:w-3/5 md:w-2/5 lg:w-full flex-shrink-0 lg:flex-shrink bg-neutral-white rounded-2xl shadow-xl p-8 flex flex-col items-center border-2 border-transparent hover:border-accent-red hover:shadow-2xl transition duration-300 ease-in-out transform hover:-translate-y-2">
+                <!-- NEW: Updated mobile sizing -->
+                <div class="w-4/5 sm:w-3/5 md:w-full flex-shrink-0 md:flex-shrink bg-neutral-white rounded-2xl shadow-xl p-8 flex flex-col items-center border-2 border-transparent hover:border-accent-red hover:shadow-2xl transition duration-300 ease-in-out transform hover:-translate-y-2">
                     <div class="bg-accent-red p-4 rounded-full mb-6">
                         <svg class="w-12 h-12 text-neutral-white" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
@@ -514,8 +514,8 @@
                 </div>
                 
                 <!-- Service Card 2: Plumbing Services -->
-                <!-- NEW: Added mobile sizing and flex-shrink -->
-                <div class="w-4/5 sm:w-3/5 md:w-2/5 lg:w-full flex-shrink-0 lg:flex-shrink bg-neutral-white rounded-2xl shadow-xl p-8 flex flex-col items-center border-2 border-transparent hover:border-accent-red hover:shadow-2xl transition duration-300 ease-in-out transform hover:-translate-y-2">
+                <!-- NEW: Updated mobile sizing -->
+                <div class="w-4/5 sm:w-3/5 md:w-full flex-shrink-0 md:flex-shrink bg-neutral-white rounded-2xl shadow-xl p-8 flex flex-col items-center border-2 border-transparent hover:border-accent-red hover:shadow-2xl transition duration-300 ease-in-out transform hover:-translate-y-2">
                     <div class="bg-accent-red p-4 rounded-full mb-6">
                         <!-- Simple water drop icon -->
                         <svg class="w-12 h-12 text-neutral-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2.25c-4.14 0-7.5 3.36-7.5 7.5 0 4.14 7.5 11.25 7.5 11.25s7.5-7.11 7.5-11.25c0-4.14-3.36-7.5-7.5-7.5zM12 12a2 2 0 100-4 2 2 0 000 4z"></path></svg>
@@ -530,8 +530,8 @@
                 </div>
                 
                 <!-- Service Card 3: Mechanical Solutions -->
-                <!-- NEW: Added mobile sizing and flex-shrink -->
-                <div class="w-4/5 sm:w-3/5 md:w-2/5 lg:w-full flex-shrink-0 lg:flex-shrink bg-neutral-white rounded-2xl shadow-xl p-8 flex flex-col items-center border-2 border-transparent hover:border-accent-red hover:shadow-2xl transition duration-300 ease-in-out transform hover:-translate-y-2">
+                <!-- NEW: Updated mobile sizing -->
+                <div class="w-4/5 sm:w-3/5 md:w-full flex-shrink-0 md:flex-shrink bg-neutral-white rounded-2xl shadow-xl p-8 flex flex-col items-center border-2 border-transparent hover:border-accent-red hover:shadow-2xl transition duration-300 ease-in-out transform hover:-translate-y-2">
                     <div class="bg-accent-red p-4 rounded-full mb-6">
                         <!-- Simple settings/cog icon -->
                         <svg class="w-12 h-12 text-neutral-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37-2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
@@ -563,8 +563,8 @@
             <div>
                 <!-- Projects Panel -->
                 <div id="projects-panel" class="tab-panel active" data-layout="grid">
-                    <!-- NEW: Mobile-first horizontal scroll -->
-                    <div id="projects-container" class="flex overflow-x-auto space-x-6 p-4 -m-4 lg:grid lg:grid-cols-3 lg:gap-8 lg:max-w-6xl lg:mx-auto lg:space-x-0 lg:p-0 lg:m-0 hide-scrollbar">
+                    <!-- NEW: Mobile-first horizontal scroll, switches to grid on md -->
+                    <div id="projects-container" class="flex overflow-x-auto space-x-6 p-4 -m-4 md:grid md:grid-cols-3 md:gap-8 md:max-w-6xl md:mx-auto md:space-x-0 md:p-0 md:m-0 hide-scrollbar">
                         <!-- Project cards will be dynamically inserted here by JavaScript -->
                         <p class="text-lg text-primary-dark col-span-full">Loading projects...</p>
                     </div>
@@ -586,8 +586,8 @@
 
                 <!-- Blog Panel -->
                 <div id="blog-panel" class="tab-panel" data-layout="grid">
-                    <!-- NEW: Mobile-first horizontal scroll -->
-                    <div id="blog-posts-container" class="flex overflow-x-auto space-x-6 p-4 -m-4 lg:grid lg:grid-cols-3 lg:gap-8 lg:max-w-6xl lg:mx-auto lg:space-x-0 lg:p-0 lg:m-0 hide-scrollbar">
+                    <!-- NEW: Mobile-first horizontal scroll, switches to grid on md -->
+                    <div id="blog-posts-container" class="flex overflow-x-auto space-x-6 p-4 -m-4 md:grid md:grid-cols-3 md:gap-8 md:max-w-6xl md:mx-auto md:space-x-0 md:p-0 md:m-0 hide-scrollbar">
                         <!-- Blog posts will be dynamically inserted here by JavaScript -->
                         <p class="text-lg text-primary-dark col-span-full">Loading blog posts...</p>
                     </div>
@@ -830,9 +830,9 @@
                     const post = doc.data();
                     // Create card for public site
                     const postDate = post.createdAt?.toDate ? new Date(post.createdAt.toDate()) : new Date();
-                    // NEW: Added mobile sizing and flex-shrink
+                    // NEW: Updated mobile sizing
                     const postCard = `
-                        <div class="w-4/5 sm:w-3/5 md:w-2/5 lg:w-full flex-shrink-0 lg:flex-shrink bg-neutral-white rounded-2xl shadow-xl overflow-hidden border border-neutral-light-gray text-left transition duration-300 transform hover:shadow-2xl hover:-translate-y-1">
+                        <div class="w-4/5 sm:w-3/5 md:w-full flex-shrink-0 bg-neutral-white rounded-2xl shadow-xl overflow-hidden border border-neutral-light-gray text-left transition duration-300 transform hover:shadow-2xl hover:-translate-y-1">
                             <div class="p-6">
                                 <h3 class="text-xl font-semibold text-primary-dark mb-2">${post.title || 'Blog Post'}</h3>
                                 <p class="text-gray-500 text-sm mb-4">${postDate.toLocaleDateString()}</p>
@@ -864,9 +864,9 @@
                 querySnapshot.forEach((doc) => {
                     const project = doc.data();
                     // Create card for public site
-                    // NEW: Added mobile sizing and flex-shrink
+                    // NEW: Updated mobile sizing
                     const projectCard = `
-                        <div class="w-4/5 sm:w-3/5 md:w-2/5 lg:w-full flex-shrink-0 lg:flex-shrink bg-neutral-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 ease-in-out transform hover:-translate-y-1 border border-neutral-light-gray">
+                        <div class="w-4/5 sm:w-3/5 md:w-full flex-shrink-0 bg-neutral-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 ease-in-out transform hover:-translate-y-1 border border-neutral-light-gray">
                             <img src="${project.imageUrl || 'https://placehold.co/600x400/000000/F8F8F8?text=Project+Image'}" alt="${project.title || 'Project'}" class="w-full h-56 object-cover" onerror="this.onerror=null; this.src='https://placehold.co/600x400/000000/F8F8F8?text=Image+Missing';">
                             <div class="p-6 text-left">
                                 <h3 class="text-xl font-semibold text-primary-dark mb-2">${project.title || 'Project Title'}</h3>
