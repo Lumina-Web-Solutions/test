@@ -3,1041 +3,804 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fast Electro Mechanic Solutions - Your Trusted Partner</title>
+    <title>Lumina Web Solutions - Digital Experiences That Shine</title>
+    
+    <!-- Favicon from your GitHub URL -->
+    <link rel="icon" href="https://raw.githubusercontent.com/alfin-7736/Lumina-Compas/6f60b90340697b796accdf20cc4b1f7059c93c27/Screenshot%202025-09-28%20121335.png">
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
-    <!-- Google Fonts - Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- NEW: Poppins font for Lumina Logo -->
+    <!-- Google Fonts: Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- GSAP (GreenSock Animation Platform) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    
+    <!-- Icons Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
     <style>
-        /* New fix for sticky header scroll */
+        /* Custom Styles */
         html {
             scroll-behavior: smooth;
-            /* scroll-padding-top will be set by JavaScript */
         }
-        
-        /* Custom Tailwind Colors - Black, Red, White Palette */
-        :root {
-            --color-primary-dark: #000000; /* Black */
-            --color-accent-red: #FF0000;   /* Pure Red */
-            --color-neutral-white: #FFFFFF; /* Pure White */
-            --color-neutral-light-gray: #F8F8F8; /* Very subtle light gray, almost white */
-        }
-
-        /* Applying new color variables */
-        .bg-primary-dark { background-color: var(--color-primary-dark); }
-        .text-primary-dark { color: var(--color-primary-dark); }
-        .bg-accent-red { background-color: var(--color-accent-red); }
-        .text-accent-red { color: var(--color-accent-red); }
-        .bg-neutral-white { background-color: var(--color-neutral-white); }
-        .text-neutral-white { color: var(--color-neutral-white); }
-        .bg-neutral-light-gray { background-color: var(--color-neutral-light-gray); }
-        .text-neutral-light-gray { color: var(--color-neutral-light-gray); }
-
-
-        /* Custom Font - Inter */
         body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6; /* Improved readability */
+            font-family: 'Poppins', sans-serif;
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            overflow-x: hidden;
+            cursor: auto;
+            opacity: 1;
         }
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Inter', sans-serif;
-            letter-spacing: -0.025em; /* Subtle negative letter spacing for modern look */
-        }
-
-        /* Responsive Heading Sizes */
-        .hero-h1 {
-            font-size: 2.5rem; /* Default for mobile */
-        }
-        @media (min-width: 640px) { /* sm breakpoint */
-            .hero-h1 {
-                font-size: 3rem;
-            }
-        }
-        @media (min-width: 768px) { /* md breakpoint */
-            .hero-h1 {
-                font-size: 4rem;
-            }
-        }
-        @media (min-width: 1024px) { /* lg breakpoint */
-            .hero-h1 {
-                font-size: 5rem;
-            }
-        }
-
-        /* UPDATED: Section H2 sizing */
-        .section-h2 {
-            font-size: 2.25rem; /* 36px */
-            font-weight: 800; /* extrabold */
-            line-height: 2.5rem; /* 40px */
-        }
-        @media (min-width: 768px) { /* md breakpoint */
-            .section-h2 {
-                font-size: 3rem; /* 48px */
-                line-height: 1;
-            }
-        }
-    
-        .loader {
-            width: 48px;
-            height: 48px;
-            border: 5px solid var(--color-primary-dark);
-            border-bottom-color: transparent;
-            border-radius: 50%;
-            display: inline-block;
-            box-sizing: border-box;
-            animation: rotation 1s linear infinite;
-            margin: 1rem auto;
-        }
-        @keyframes rotation {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Styles for the mobile navigation toggle */
-        .hamburger-menu {
-            display: none; /* Hidden by default on larger screens */
-            cursor: pointer;
-            flex-direction: column;
-            justify-content: space-around;
-            width: 30px;
-            height: 25px;
-            z-index: 50; /* Ensure it's above other content */
-        }
-
-        .hamburger-menu span {
-            display: block;
-            width: 100%;
-            height: 3px;
-            background-color: var(--color-primary-dark); /* Black for hamburger lines on white header */
-            border-radius: 2px;
-            transition: all 0.3s ease-in-out;
-        }
-
-        /* Mobile nav open state for hamburger 'X' */
-        .nav-open .hamburger-menu span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-        .nav-open .hamburger-menu span:nth-child(2) {
-            opacity: 0;
-        }
-        .nav-open .hamburger-menu span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -5px);
-        }
-
-        .mobile-nav-links {
-            display: none; /* Hidden by default */
-            position: absolute; /* Position relative to its parent (main-header) */
-            top: 100%; /* Position below the main header */
-            left: 0;
-            width: 100%;
-            background-color: var(--color-primary-dark); /* Black background for mobile menu */
-            flex-direction: column;
-            align-items: center;
-            padding: 1rem 0;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 40; /* Below hamburger, above content */
-        }
-
-        .mobile-nav-links.active {
-            display: flex; /* Show when active */
-        }
-
-        .mobile-nav-links li {
-            width: 100%;
-            text-align: center;
-            padding: 0.75rem 0;
-        }
-
-        .mobile-nav-links a {
-            display: block;
-            padding: 0.5rem 0;
-            width: 100%;
-            color: var(--color-neutral-white); /* White text for mobile nav links */
-        }
-
-        /* Show hamburger on mobile, hide desktop nav */
-        @media (max-width: 1023px) { /* Changed to lg breakpoint */
-            .hamburger-menu {
-                display: flex;
-            }
-            .desktop-nav-links {
-                display: none;
-            }
-            .desktop-cta {
-                display: none;
-            }
-        }
-
-        /* Slideshow specific styles */
-        .slideshow-container {
-            max-width: 100%; /* Ensures it doesn't exceed parent width */
-            position: relative;
-            margin: auto;
-            height: 60vh; /* Set a fixed height for the slideshow section */
-            overflow: hidden; /* Hide overflowing parts of images */
-            background-color: #eee; /* Placeholder bg */
-            border-radius: 1rem; /* Added rounding */
-        }
-
-        .mySlides {
-            display: none; /* Hide slides by default */
-            height: 100%; /* Make slides fill the slideshow-container height */
-            width: 100%; /* Make slides fill the slideshow-container width */
-            position: absolute; /* Position absolutely within the slideshow-container */
+        /* SIMPLE CSS Preloader */
+        #preloader {
+            position: fixed;
             top: 0;
             left: 0;
-        }
-
-        .mySlides img {
             width: 100%;
-            height: 100%;
-            object-fit: cover; /* Ensures the image covers the area without distortion, cropping if necessary */
-        }
-
-        /* Next & previous buttons */
-        .prev, .next {
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            width: auto;
-            padding: 16px;
-            margin-top: -22px;
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
-            transition: 0.6s ease;
-            border-radius: 0 3px 3px 0;
-            user-select: none;
-            background-color: rgba(0,0,0,0.5); /* Semi-transparent black */
-            z-index: 10; /* Ensure buttons are above images */
-        }
-
-        /* Position the "next button" to the right */
-        .next {
-            right: 0;
-            border-radius: 3px 0 0 3px;
-        }
-
-        /* On hover, add a black background with a little more opacity */
-        .prev:hover, .next:hover {
-            background-color: rgba(0,0,0,0.8);
-        }
-
-        /* Fading animation */
-        .fade {
-            animation-name: fade;
-            animation-duration: 1.5s;
-        }
-
-        @keyframes fade {
-            from {opacity: .4}
-            to {opacity: 1}
-        }
-
-        /* NEW: Styles for Tabbed Section */
-        .tab-button {
-            padding: 0.75rem 1rem; /* Reduced horizontal padding */
-            font-size: 1rem; /* Reduced font size */
-            font-weight: 600;
-            color: #9ca3af; /* gray-400 */
-            background-color: transparent;
-            border-bottom: 4px solid transparent;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        @media (min-width: 640px) { /* sm breakpoint */
-            .tab-button {
-                padding: 0.75rem 1.5rem;
-                font-size: 1.125rem;
-            }
-        }
-        .tab-button.active {
-            color: var(--color-primary-dark);
-            border-bottom-color: var(--color-accent-red);
-        }
-        .tab-panel {
-            display: none; /* Hidden by default */
-        }
-        .tab-panel.active {
-            display: block; /* Show active panel */
-        }
-        /* Make panels with grids display correctly */
-        .tab-panel[data-layout="grid"].active {
-            display: grid;
-        }
-       
-        /* NEW: Styles for Lumina Footer Logo */
-        .lumina-power-footer {
-            /* This controls the alignment of the whole block */
+            height: 100vh;
+            background-color: #0a0a0a;
+            z-index: 10000;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 0.5rem; /* 8px */
-            font-family: 'Poppins', sans-serif;
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+            visibility: visible;
+        }
+        #preloader.loaded {
+            opacity: 0;
+            visibility: hidden;
+        }
+        #preloader .preloader-logo {
+            width: 300px;
+            max-width: 80%;
+            animation: pulse 1.5s ease-in-out infinite; 
+            border: none; 
+            outline: none; 
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(0.95); }
+        }
+
+        .hero-bg {
+            background-color: #0a0a0a;
+            background-image: radial-gradient(#1a1a1a 1px, transparent 1px);
+            background-size: 20px 20px;
+            position: relative;
+        }
+        .hero-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(0, 123, 255, 0.15) 0%, rgba(0, 123, 255, 0) 60%);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+        .accent-blue {
+            color: #007BFF;
+        }
+        
+        /* Button Styles */
+        .btn-primary {
+            background-color: #007BFF;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 123, 255, 0.2);
+        }
+        .btn-outline {
+            border: 1px solid #333;
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+        .btn-outline:hover {
+            border-color: #007BFF;
+            color: #007BFF;
+        }
+
+        .nav-link {
+            transition: color 0.3s ease;
+            position: relative;
+            padding-bottom: 4px;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #007BFF;
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+        }
+        .nav-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        .nav-link:hover {
+            color: #fff;
+        }
+        
+        .service-card {
+            background-color: #121212;
+            border: 1px solid #222;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card:hover {
+            border-color: #007BFF;
+            transform: translateY(-5px);
+        }
+        
+        /* Labs Card */
+        .lab-card {
+            background: linear-gradient(145deg, #1a1a1a, #111);
+            border: 1px solid #333;
+            transition: all 0.3s ease;
+        }
+        .lab-card:hover {
+            border-color: #007BFF;
+            box-shadow: 0 0 30px rgba(0, 123, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 1.25rem;
+            top: 1.25rem;
+            bottom: -1.25rem;
+            width: 2px;
+            background-color: #333;
+            transform: translateX(-50%);
+        }
+        .timeline-item:last-child::before {
+            display: none;
+        }
+        .timeline-dot {
+            border: 2px solid #333;
+            transition: all 0.3s ease;
+        }
+        .timeline-item.is-visible .timeline-dot {
+            background-color: #007BFF;
+            border-color: #007BFF;
+        }
+        
+        .section-title-line {
+            width: 80px;
+            height: 3px;
+            background-color: #007BFF;
+            border-radius: 2px;
+            margin-top: 8px;
+        }
+        .clip-text {
+            overflow: hidden;
+        }
+        
+        /* CSS Scroll Animation */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s cubic-bezier(0.645, 0.045, 0.355, 1), transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Menu Styles */
+        #mobile-menu {
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        /* Instagram Banner */
+        .insta-banner {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Form Styles */
+        .form-input {
+            background-color: #1f2937; border: 1px solid #374151; color: white;
+            width: 100%; padding: 12px; border-radius: 8px; margin-bottom: 15px;
+            transition: border-color 0.3s;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #007BFF;
+        }
+
+        /* Modal Styles */
+        #review-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 50;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .modal-content {
+            background: #121212;
+            padding: 2rem;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid #333;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        /* Custom Cursor - Hide on mobile to prevent sticking */
+        .cursor-follower {
+            position: fixed;
+            top: 0; left: 0; width: 30px; height: 30px;
+            background-color: rgba(0, 123, 255, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s, transform 0.1s linear;
+            backdrop-filter: blur(2px);
+        }
+        .cursor-follower.hovered {
+            width: 60px; height: 60px;
+            background-color: rgba(0, 123, 255, 0.2);
+        }
+        @media (hover: none) {
+            .cursor-follower { display: none; }
+        }
+        
+        /* Footer Logo Styles */
+        .lumina-power-footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
             text-decoration: none;
-            margin-top: 0.75rem; /* 12px */
+            margin-top: 0.75rem;
             opacity: 0.7;
             transition: opacity 0.3s ease;
         }
+        .lumina-power-footer:hover { opacity: 1; }
+        .lumina-power-text { font-size: 0.75rem; font-weight: 400; color: #9ca3af; }
+        .lumina-logo-container { line-height: 1.2; text-align: left; }
+        .lumina-logo-text { font-size: 1rem; font-weight: 700; color: #e0e0e0; letter-spacing: 0.05em; }
+        .lumina-logo-text .accent { color: #007BFF; }
+        .lumina-logo-tagline { font-size: 0.5rem; font-weight: 400; color: #9ca3af; letter-spacing: 0.2em; text-transform: uppercase; }
 
-        .lumina-power-footer:hover {
-            opacity: 1;
-        }
-
-        .lumina-power-text {
-            font-size: 0.75rem; /* 12px */
-            font-weight: 400;
-            color: #9ca3af; /* Tailwind gray-400 */
-        }
-
-        .lumina-logo-container {
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.2;
-            text-align: left; /* Aligns text within the logo itself */
-        }
-
-        .lumina-logo-text {
-            font-size: 1rem; /* 16px */
-            font-weight: 700;
-            color: #e0e0e0; /* Light gray/white */
-            letter-spacing: 0.05em; /* Tighter for footer */
-        }
-
-        .lumina-logo-text .accent {
-            color: #007BFF; /* Lumina Blue - NOTE: You can change this color */
-        }
-
-        .lumina-logo-tagline {
-            font-size: 0.5rem; /* 8px */
-            font-weight: 400;
-            color: #9ca3af; /* Lighter gray */
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-        }
-
-        /* NEW: Hide scrollbar for horizontal carousels */
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .hide-scrollbar {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
-        }
     </style>
 </head>
-<body class="bg-neutral-white text-primary-dark antialiased">
+<body class="antialiased">
 
-    <!-- REDESIGNED Main Header -->
-    <header class="main-header bg-neutral-white text-primary-dark py-3 px-6 shadow-lg w-full sticky top-0 border-b border-neutral-light-gray z-50">
-        <div class="container mx-auto flex justify-between items-center">
-            <!-- Logo Image -->
-            <div class="flex-shrink-0">
-                <a href="#" class="block" aria-label="Fast Electro Mechanic Solutions Home">
-                    <!-- NEW SVG LOGO -->
-                    <svg class="h-16 md:h-20 w-auto" viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M28.431 10.431L18.214 28.334H33.078L22.861 10.431H28.431ZM20.301 30.556L10 46.875V10H16.126L26.343 27.903H11.479L21.696 45.806L31.913 27.903H37L26.783 44.222L37 60H30.874L20.301 42.097V60H14.431V30.556H20.301Z" fill="#000000"/>
-                        <text x="45" y="36" font-family="Inter, sans-serif" font-size="20" font-weight="800" fill="#000000">FAST</text>
-                        <text x="105" y="36" font-family="Inter, sans-serif" font-size="20" font-weight="600" fill="#000000">ELECTRO</text>
-                        <rect x="45" y="40" width="150" height="3" fill="#FF0000"/>
-                    </svg>
-                </a>
+    <!-- Preloader -->
+    <div id="preloader">
+        <img src="https://raw.githubusercontent.com/alfin-7736/Lumina-Compas/6f60b90340697b796accdf20cc4b1f7059c93c27/Screenshot%202025-09-28%20121335.png" alt="Lumina Web Solutions Logo" class="preloader-logo">
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-follower"></div>
+
+    <!-- Header -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold tracking-wider">
+                LUMINA<span class="accent-blue">.</span>
             </div>
-
-            <!-- Desktop Navigation -->
-            <nav class="desktop-nav-links hidden lg:block">
-                <ul class="flex space-x-6 text-base font-medium">
-                    <li><a href="#home" class="hover:text-accent-red transition duration-300 ease-in-out">Home</a></li>
-                    <li><a href="#about" class="hover:text-accent-red transition duration-300 ease-in-out">About Us</a></li>
-                    <li><a href="#services" class="hover:text-accent-red transition duration-300 ease-in-out">Services</a></li>
-                    <!-- Updated links for tabs -->
-                    <li><a href="#work-and-news" class="hover:text-accent-red transition duration-300 ease-in-out">Our Work</a></li>
-                    <li><a href="#work-and-news" class="hover:text-accent-red transition duration-300 ease-in-out">Blog</a></li>
-                    <li><a href="#contact" class="hover:text-accent-red transition duration-300 ease-in-out">Contact</a></li>
-                </ul>
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center space-x-4">
+                <a href="#services" class="nav-link px-4 py-2 text-gray-300">Services</a>
+                <a href="#labs" class="nav-link px-4 py-2 text-gray-300">Labs</a>
+                <a href="#projects" class="nav-link px-4 py-2 text-gray-300">Projects</a>
+                <a href="#testimonials" class="nav-link px-4 py-2 text-gray-300">Reviews</a>
+                <a href="#contact" class="bg-gray-800/50 border border-gray-700 px-5 py-2 rounded-full text-gray-300 nav-link hover:bg-gray-700">Contact</a>
             </nav>
-
-            <!-- Desktop CTA & Phone -->
-            <div class="desktop-cta hidden lg:flex items-center space-x-6">
-                <a href="tel:+919562773436" class="flex items-center space-x-2 text-sm font-semibold hover:text-accent-red transition duration-300">
-                    <i class="fas fa-phone-alt w-4 h-4 text-accent-red"></i>
-                    <span>+91 95627 73436</span>
-                </a>
-                <a href="#contact" class="bg-accent-red text-neutral-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-red-700 transition duration-300 ease-in-out transform hover:scale-105">
-                    Get a Quote
-                </a>
-            </div>
-
-            <!-- Hamburger Menu for Mobile -->
-            <div class="hamburger-menu lg:hidden" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-btn" class="text-white z-50 relative">
+                    <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
             </div>
         </div>
-
-        <!-- Mobile Navigation Links (hidden by default) -->
-        <nav class="mobile-nav-links lg:hidden" id="mobile-nav">
-            <ul class="w-full">
-                <li><a href="#home" class="block hover:text-accent-red transition duration-300 ease-in-out py-2">Home</a></li>
-                <li><a href="#about" class="block hover:text-accent-red transition duration-300 ease-in-out py-2">About Us</a></li>
-                <li><a href="#services" class="block hover:text-accent-red transition duration-300 ease-in-out py-2">Services</a></li>
-                <li><a href="#work-and-news" class="block hover:text-accent-red transition duration-300 ease-in-out py-2">Our Work</a></li>
-                <li><a href="#work-and-news" class="block hover:text-accent-red transition duration-300 ease-in-out py-2">Blog</a></li>
-                <li><a href="#contact" class="block hover:text-accent-red transition duration-300 ease-in-out py-2">Contact</a></li>
-                <li class="mt-4">
-                    <a href="#contact" class="inline-block bg-accent-red text-neutral-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-red-700 transition duration-300 ease-in-out">
-                        Get a Quote
-                    </a>
-                </li>
-                <li class="mt-4">
-                     <a href="tel:+919562773436" class="flex items-center justify-center space-x-2 text-sm font-semibold text-neutral-white hover:text-accent-red transition duration-300">
-                        <i class="fas fa-phone-alt w-4 h-4 text-accent-red"></i>
-                        <span>+91 95627 73436</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
     </header>
 
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-black bg-opacity-90 z-40 flex flex-col items-center justify-center space-y-8">
+        <a href="#services" class="text-3xl font-bold text-gray-300 nav-link">Services</a>
+        <a href="#labs" class="text-3xl font-bold text-gray-300 nav-link">Lumina Labs</a>
+        <a href="#projects" class="text-3xl font-bold text-gray-300 nav-link">Projects</a>
+        <a href="#testimonials" class="text-3xl font-bold text-gray-300 nav-link">Reviews</a>
+        <a href="#contact" class="text-3xl font-bold text-gray-300 nav-link">Contact</a>
+    </div>
+
     <!-- Hero Section -->
-    <section id="home" class="relative bg-cover bg-center h-[85vh] md:h-screen flex items-center justify-center text-neutral-white -mt-[88px] md:-mt-[96px] pt-[88px] md:pt-[96px]">
-        <!-- Background Image -->
-        <div class="absolute inset-0">
-            <!-- NEW Hero Background Image -->
-            <img src="https://images.unsplash.com/photo-1518660324835-b1c0b333604e?q=80&w=1740&auto=format&fit=crop" 
-                 alt="Professional electrical tools on a workbench" 
-                 class="w-full h-full object-cover">
-            <!-- Overlay for better text readability -->
-            <div class="absolute inset-0 bg-primary-dark opacity-75 z-10"></div>
-        </div>
-        
-        <!-- Hero Content -->
-        <div class="relative z-20 text-center px-4 max-w-5xl mx-auto">
-            <h1 class="hero-h1 font-extrabold leading-tight mb-6 drop-shadow-lg">
-                Your Trusted Partner for Expert Electro Mechanic Solutions in Kerala
+    <section class="hero-bg min-h-screen flex items-center justify-center text-center overflow-hidden pt-20">
+        <div class="hero-glow"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tighter">
+                <div class="clip-text"><span class="hero-line block">We Build Digital</span></div>
+                <div class="clip-text"><span class="hero-line block">Experiences That</span></div>
+                <div class="clip-text"><span class="hero-line block accent-blue">Shine.</span></div>
             </h1>
-            <p class="text-lg sm:text-xl md:text-2xl mb-8 font-light">
-                Reliable & Fast Electrical and Plumbing Services, Committed to Quality and Safety.
+            <p class="hero-subtext mt-6 max-w-2xl mx-auto text-lg md:text-xl text-gray-400">
+                Lumina Web Solutions crafts stunning websites and powerful digital strategies to elevate your brand in an ever-evolving online world.
             </p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-                <a href="#about" class="bg-accent-red text-neutral-white font-extrabold py-4 px-10 rounded-full shadow-lg hover:bg-red-700 transition duration-300 ease-in-out transform hover:scale-105 border-2 border-neutral-white">
-                    Learn More
-                </a>
-                <a href="#contact" class="bg-primary-dark text-neutral-white font-extrabold py-4 px-10 rounded-full shadow-lg hover:bg-red-700 transition duration-300 ease-in-out transform hover:scale-105 border-2 border-neutral-white">
-                    Contact Us
+            <div class="hero-cta mt-10">
+                <a href="#contact" class="btn-primary text-white font-semibold py-3 px-8 rounded-full text-lg shadow-lg inline-block">
+                    Let's Create
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- About Us Section (Neat layout) -->
-    <section id="about" class="py-16 md:py-24 px-6 bg-neutral-light-gray">
-        <div class="container mx-auto max-w-6xl">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
-                <!-- Image Column -->
-               <div class="rounded-2xl overflow-hidden shadow-2xl">
-                   <!-- Placeholder for a professional image -->
-                   <img src="https://raw.githubusercontent.com/Lumina-Web-Solutions/Fast-Electro-mechanical-Solutions-/refs/heads/main/plumber%20working%20on%20pipe.png" 
-                        alt="Professional plumber working on pipes" 
-                        class="w-full h-full object-cover"
-                        onerror="this.onerror=null; this.src='https://placehold.co/600x500/cccccc/333333?text=Our+Professional+Work';">
-               </div>
-                <!-- Text Column -->
-                <div class="text-left">
-                    <span class="text-accent-red font-semibold text-lg">About Us</span>
-                    <h2 class="section-h2 text-primary-dark mt-2 mb-6">Your Trusted Local Experts</h2>
-                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                        At Fast Electro Mechanic Solutions, led by owner <span class="font-semibold text-primary-dark">Jobin Kurian</span>, we are dedicated to providing top-tier electrical and plumbing services across <span class="font-semibold text-primary-dark">Vellikulam</span>, and surrounding areas of Kerala. With 25 years of experience, we pride ourselves on our commitment to safety, quality materials, and unparalleled customer satisfaction.
-                    </p>
-                    <p class="text-lg text-gray-700 leading-relaxed mb-8">
-                        Our mission is to be your reliable partner for all your electro-mechanic needs, ensuring efficient and lasting solutions for both residential and commercial clients.
-                    </p>
-                    
-                    <!-- NEW: Info cards moved here for a cleaner layout -->
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-                        <div class="bg-neutral-white text-primary-dark p-4 rounded-lg shadow-md text-center">
-                            <i class="fas fa-clock fa-lg text-accent-red mb-2"></i>
-                            <h4 class="text-lg font-bold">24/7/365</h4>
-                            <p class="text-sm">Customer Care</p>
-                        </div>
-                        <div class="bg-neutral-white text-primary-dark p-4 rounded-lg shadow-md text-center">
-                            <i class="fas fa-home fa-lg text-accent-red mb-2"></i>
-                            <h4 class="text-lg font-bold">Complete Home</h4>
-                            <p class="text-sm">Solutions</p>
-                        </div>
-                        <div class="bg-neutral-white text-primary-dark p-4 rounded-lg shadow-md text-center">
-                            <i class="fas fa-medal fa-lg text-accent-red mb-2"></i>
-                            <h4 class="text-lg font-bold">25 Years</h4>
-                            <p class="text-sm">Experience</p>
-                        </div>
-                    </div>
-                    
-                    <a href="#contact" class="bg-accent-red text-neutral-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-red-700 transition duration-300 ease-in-out transform hover:scale-105">
-                        Get a Free Consultation
-                    </a>
-                </div>
+    <!-- Services Section -->
+    <section id="services" class="py-16 md:py-24 bg-gray-800 fade-in-section">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="section-title text-3xl md:text-4xl font-bold">What We Craft</h2>
+                <div class="section-title-line mx-auto"></div>
             </div>
-        </div>
-    </section>
-
-    <!-- Services Section (Redesigned) -->
-    <section id="services" class="py-16 md:py-24 px-6 bg-neutral-white">
-        <div class="container mx-auto text-center">
-            <span class="text-accent-red font-semibold text-lg">What We Do</span>
-            <h2 class="section-h2 text-primary-dark mt-2 mb-12">Our Expert Services</h2>
-            
-            <!-- NEW: Mobile-first horizontal scroll, switches to grid on md -->
-            <div class="flex overflow-x-auto space-x-6 p-4 -m-4 md:grid md:grid-cols-3 md:gap-8 md:max-w-6xl md:mx-auto md:space-x-0 md:p-0 md:m-0 hide-scrollbar">
-                
-                <!-- Service Card 1: Electrical Services -->
-                <!-- NEW: Updated mobile sizing -->
-                <div class="w-4/5 sm:w-3/5 md:w-full flex-shrink-0 md:flex-shrink bg-neutral-white rounded-2xl shadow-xl p-8 flex flex-col items-center border-2 border-transparent hover:border-accent-red hover:shadow-2xl transition duration-300 ease-in-out transform hover:-translate-y-2">
-                    <div class="bg-accent-red p-4 rounded-full mb-6">
-                        <svg class="w-12 h-12 text-neutral-white" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-semibold text-primary-dark mb-4">Electrical Services</h3>
-                    <p class="text-primary-dark mb-6 text-gray-700">
-                        From new installations to complex repairs, our certified electricians ensure safe and efficient electrical systems for your home or business.
-                    </p>
-                    <a href="#contact" class="bg-primary-dark text-neutral-white font-bold py-2 px-6 rounded-full hover:bg-red-700 transition duration-300 ease-in-out">
-                        Get a Quote
-                    </a>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="service-card p-8 rounded-lg">
+                    <div class="mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 accent-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg></div>
+                    <h3 class="text-2xl font-semibold mb-3">Web Design & Development</h3>
+                    <p class="text-gray-400">Creating visually stunning, user-friendly websites that are fast, responsive, and built for performance from the ground up.</p>
                 </div>
-                
-                <!-- Service Card 2: Plumbing Services -->
-                <!-- NEW: Updated mobile sizing -->
-                <div class="w-4/5 sm:w-3/5 md:w-full flex-shrink-0 md:flex-shrink bg-neutral-white rounded-2xl shadow-xl p-8 flex flex-col items-center border-2 border-transparent hover:border-accent-red hover:shadow-2xl transition duration-300 ease-in-out transform hover:-translate-y-2">
-                    <div class="bg-accent-red p-4 rounded-full mb-6">
-                        <!-- Simple water drop icon -->
-                        <svg class="w-12 h-12 text-neutral-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2.25c-4.14 0-7.5 3.36-7.5 7.5 0 4.14 7.5 11.25 7.5 11.25s7.5-7.11 7.5-11.25c0-4.14-3.36-7.5-7.5-7.5zM12 12a2 2 0 100-4 2 2 0 000 4z"></path></svg>
-                    </div>
-                    <h3 class="text-2xl font-semibold text-primary-dark mb-4">Plumbing Services</h3>
-                    <p class="text-primary-dark mb-6 text-gray-700">
-                        Reliable plumbing solutions including leak detection, pipe repair, fixture installation, and complete system overhauls.
-                    </p>
-                    <a href="#contact" class="bg-primary-dark text-neutral-white font-bold py-2 px-6 rounded-full hover:bg-red-700 transition duration-300 ease-in-out">
-                        Get a Quote
-                    </a>
+                <div class="service-card p-8 rounded-lg">
+                    <div class="mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 accent-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg></div>
+                    <h3 class="text-2xl font-semibold mb-3">eCommerce Solutions</h3>
+                    <p class="text-gray-400">Building robust online stores with seamless checkout experiences, secure payment gateways, and easy inventory management.</p>
                 </div>
-                
-                <!-- Service Card 3: Mechanical Solutions -->
-                <!-- NEW: Updated mobile sizing -->
-                <div class="w-4/5 sm:w-3/5 md:w-full flex-shrink-0 md:flex-shrink bg-neutral-white rounded-2xl shadow-xl p-8 flex flex-col items-center border-2 border-transparent hover:border-accent-red hover:shadow-2xl transition duration-300 ease-in-out transform hover:-translate-y-2">
-                    <div class="bg-accent-red p-4 rounded-full mb-6">
-                        <!-- Simple settings/cog icon -->
-                        <svg class="w-12 h-12 text-neutral-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37-2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                    </div>
-                    <h3 class="text-2xl font-semibold text-primary-dark mb-4">Mechanical Solutions</h3>
-                    <p class="text-primary-dark mb-6 text-gray-700">
-                        Beyond electrical and plumbing, we offer a range of mechanical services tailored to your specific needs.
-                    </p>
-                    <a href="#contact" class="bg-primary-dark text-neutral-white font-bold py-2 px-6 rounded-full hover:bg-red-700 transition duration-300 ease-in-out">
-                        Get a Quote
-                    </a>
+                <div class="service-card p-8 rounded-lg">
+                    <div class="mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 accent-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></div>
+                    <h3 class="text-2xl font-semibold mb-3">SEO & Digital Marketing</h3>
+                    <p class="text-gray-400">Boosting your online visibility, driving organic traffic, and converting visitors into loyal customers through proven strategies.</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- NEW: Tabbed Work & News Section -->
-    <section id="work-and-news" class="py-16 md:py-24 px-6 bg-neutral-light-gray">
-        <div class="container mx-auto text-center max-w-6xl">
-            <!-- Tab Navigation -->
-            <!-- NEW: Added flex-wrap for mobile -->
-            <div class="flex flex-wrap justify-center border-b border-gray-300 mb-12" id="tabs-nav">
-                <button class="tab-button active" data-target="projects-panel">Completed Projects</button>
-                <button class="tab-button" data-target="gallery-panel">Gallery</button>
-                <button class="tab-button" data-target="blog-panel">Latest Blog</button>
-            </div>
-
-            <!-- Tab Content Panels -->
-            <div>
-                <!-- Projects Panel -->
-                <div id="projects-panel" class="tab-panel active" data-layout="grid">
-                    <!-- NEW: Mobile-first horizontal scroll, switches to grid on md -->
-                    <div id="projects-container" class="flex overflow-x-auto space-x-6 p-4 -m-4 md:grid md:grid-cols-3 md:gap-8 md:max-w-6xl md:mx-auto md:space-x-0 md:p-0 md:m-0 hide-scrollbar">
-                        <!-- Project cards will be dynamically inserted here by JavaScript -->
-                        <p class="text-lg text-primary-dark col-span-full">Loading projects...</p>
-                    </div>
-                    <a href="#contact" class="mt-12 inline-block bg-primary-dark text-neutral-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-red-700 transition duration-300 ease-in-out transform hover:scale-105">
-                        Request an Estimate
-                    </a>
-                </div>
-
-                <!-- Gallery Panel -->
-                <div id="gallery-panel" class="tab-panel">
-                    <div id="slideshow-container-dynamic" class="slideshow-container">
-                        <!-- Slides will be dynamically inserted here by JavaScript -->
-                        <p class="text-lg text-primary-dark p-10">Loading gallery...</p>
-                        <!-- Next and previous buttons -->
-                        <a class="prev" onclick="plusSlides(-1)" aria-label="Previous Slide">&#10094;</a>
-                        <a class="next" onclick="plusSlides(1)" aria-label="Next Slide">&#10095;</a>
-                    </div>
-                </div>
-
-                <!-- Blog Panel -->
-                <div id="blog-panel" class="tab-panel" data-layout="grid">
-                    <!-- NEW: Mobile-first horizontal scroll, switches to grid on md -->
-                    <div id="blog-posts-container" class="flex overflow-x-auto space-x-6 p-4 -m-4 md:grid md:grid-cols-3 md:gap-8 md:max-w-6xl md:mx-auto md:space-x-0 md:p-0 md:m-0 hide-scrollbar">
-                        <!-- Blog posts will be dynamically inserted here by JavaScript -->
-                        <p class="text-lg text-primary-dark col-span-full">Loading blog posts...</p>
-                    </div>
+                <div class="service-card p-8 rounded-lg">
+                    <div class="mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 accent-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 21v-1.5M15.75 3v1.5m0 16.5v-1.5M12 4.5v-1.5m0 18v-1.5" /><path d="M12 8.25a3.75 3.75 0 100 7.5 3.75 3.75 0 000-7.5zM12 15a.75.75 0 100-1.5.75.75 0 000 1.5z" /></svg></div>
+                    <h3 class="text-2xl font-semibold mb-3">AI & Web Applications</h3>
+                    <p class="text-gray-400">Developing intelligent, custom web apps like Lumina Compass that use AI to provide real value and advanced functionality.</p>
                 </div>
             </div>
         </div>
     </section>
     
-    <!-- Testimonials Section -->
-    <section class="bg-primary-dark text-neutral-white py-16 md:py-24 px-6">
-        <div class="container mx-auto text-center">
-            <span class="text-accent-red font-semibold text-lg">Testimonials</span>
-            <h2 class="section-h2 text-neutral-white mt-2 mb-12">What Our Clients Say</h2>
+    <!-- Lumina Labs Section -->
+    <section id="labs" class="py-16 md:py-24 bg-[#0f0f0f] fade-in-section">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="section-title text-3xl md:text-4xl font-bold">Lumina Labs</h2>
+                <div class="section-title-line mx-auto"></div>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Where we experiment with the future. Check out our live AI tools tailored for real-world needs.</p>
+            </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <!-- Restyled Testimonial Card -->
-                <div class="bg-gray-800 text-neutral-white p-8 rounded-2xl shadow-lg text-left">
-                    <div class="flex items-center mb-4">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
+                <!-- Lab Project 1 -->
+                <div class="lab-card p-6 rounded-xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-white">Lumina Compass</h3>
+                        <span class="bg-blue-900 text-blue-200 text-xs px-2 py-1 rounded">AI Travel</span>
                     </div>
-                    <p class="italic text-lg mb-6 text-gray-300">"Fast Electro Mechanic Solutions provided excellent service. They were quick, professional, and fixed our plumbing issue perfectly. Highly recommended!"</p>
-                    <p class="font-semibold text-neutral-white">- Rajesh K., Homeowner</p>
+                    <p class="text-gray-400 mb-6">An intelligent travel planner that generates itineraries, budgets, and maps instantly.</p>
+                    <a href="https://lumina-compass.vercel.app/" target="_blank" class="btn-outline px-4 py-2 rounded text-sm text-white border border-white hover:border-blue-500 hover:text-blue-500 transition">Launch App <i class="fas fa-external-link-alt ml-1"></i></a>
                 </div>
-                <!-- Restyled Testimonial Card -->
-                <div class="bg-gray-800 text-neutral-white p-8 rounded-2xl shadow-lg text-left">
-                     <div class="flex items-center mb-4">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
+                <!-- Lab Project 2 -->
+                <div class="lab-card p-6 rounded-xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-white">QuickBill Pro</h3>
+                        <span class="bg-green-900 text-green-200 text-xs px-2 py-1 rounded">Finance Tool</span>
                     </div>
-                    <p class="italic text-lg mb-6 text-gray-300">"Their team handled our commercial electrical installation with utmost precision and efficiency. A truly reliable partner for any business."</p>
-                    <p class="font-semibold text-neutral-white">- Priya S., Business Owner</p>
+                    <p class="text-gray-400 mb-6">A fast, professional invoice generator for freelancers and small businesses.</p>
+                    <a href="#" class="btn-outline px-4 py-2 rounded text-sm text-white border border-white hover:border-blue-500 hover:text-blue-500 transition">Coming Soon</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Us Section -->
-    <section id="contact" class="py-16 md:py-24 px-6 bg-neutral-light-gray">
-        <div class="container mx-auto text-center max-w-3xl">
-            <span class="text-accent-red font-semibold text-lg">Get in Touch</span>
-            <h2 class="section-h2 text-primary-dark mt-2 mb-8">Get Your Free Estimate Today!</h2>
-            <p class="text-lg text-gray-700 mb-8">
-                Ready to experience fast, reliable, and professional electro-mechanic solutions? Contact us today for a free consultation and estimate. We proudly serve <span class="font-semibold text-primary-dark">Vellikulam</span>, and surrounding areas of Kerala.
+    <!-- Dynamic Completed Projects Section -->
+    <section id="projects" class="py-16 md:py-24 bg-gray-800 fade-in-section">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="section-title text-3xl md:text-4xl font-bold">Selected Works</h2>
+                <div class="section-title-line mx-auto"></div>
+            </div>
+            <!-- Projects Grid - Dynamically populated -->
+            <div id="dynamic-projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                 <p class="text-gray-500 text-center col-span-2">Loading projects...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-16 md:py-24 bg-[#101010] fade-in-section">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="section-title text-3xl md:text-4xl font-bold">Client Reviews</h2>
+                <div class="section-title-line mx-auto"></div>
+                <!-- Write Review Button -->
+                <button id="write-review-btn" class="mt-6 btn-outline px-6 py-2 rounded-full text-sm font-semibold border-gray-600 text-gray-300 hover:border-blue-500 hover:text-blue-500 transition">
+                    <i class="fas fa-pen mr-2"></i> Write a Review
+                </button>
+            </div>
+            <!-- Reviews Grid - Dynamically populated -->
+            <div id="reviews-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <p class="text-gray-500 text-center col-span-2">Loading reviews...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram Banner -->
+    <section class="py-12 bg-black border-t border-gray-800 fade-in-section">
+        <div class="container mx-auto px-6 text-center">
+            <a href="https://instagram.com/luminawebsolutions" target="_blank" class="inline-flex items-center space-x-3 group">
+                <i class="fab fa-instagram text-4xl insta-banner transition transform group-hover:scale-110"></i>
+                <div class="text-left">
+                    <p class="text-gray-400 text-xs uppercase tracking-widest">Connect With Us</p>
+                    <h3 class="text-white font-bold text-xl group-hover:text-pink-500 transition">@luminawebsolutions</h3>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" class="py-20 md:py-32 fade-in-section">
+        <div class="container mx-auto px-6 text-center">
+            <div class="clip-text"><h2 class="section-title text-4xl md:text-5xl font-extrabold mb-4">Ready to Illuminate</h2></div>
+            <div class="clip-text"><h2 class="section-title text-4xl md:text-5xl font-extrabold mb-8">Your Brand?</h2></div>
+            <p class="cta-subtitle max-w-xl mx-auto text-lg text-gray-400 mb-10">
+                Let's discuss how we can build something amazing together. Reach out to us for a free consultation.
             </p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-10">
-                <a href="tel:+919562773436" class="bg-accent-red text-neutral-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-red-700 transition duration-300 ease-in-out transform hover:scale-105 inline-flex items-center justify-center">
-                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.03 21 3 13.97 3 5c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.46.57 3.57.11.35.02.75-.25 1.02L6.62 10.79z"/></svg>
-                    Call Us: +91 95627 73436
-                </a>
-                <a href="mailto:jobinkuriankuriankottarathil@gmail.com" class="bg-primary-dark text-neutral-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-red-700 transition duration-300 ease-in-out transform hover:scale-105 inline-flex items-center justify-center">
-                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                    Email Us
-                </a>
-            </div>
-            <!-- Simple Contact Form Placeholder -->
-            <div class="bg-neutral-white p-8 rounded-2xl shadow-xl max-w-lg mx-auto border border-neutral-light-gray">
-                <form class="space-y-4">
-                    <div>
-                        <label for="name" class="block text-left text-primary-dark font-semibold mb-1">Your Name</label>
-                        <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-primary-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-red" placeholder="John Doe">
-                    </div>
-                    <div>
-                        <label for="email" class="block text-left text-primary-dark font-semibold mb-1">Your Email</label>
-                        <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-primary-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-red" placeholder="john.doe@example.com">
-                    </div>
-                    <div>
-                        <label for="message" class="block text-left text-primary-dark font-semibold mb-1">Your Message</label>
-                        <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border border-primary-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-red" placeholder="Tell us about your project..."></textarea>
-                    </div>
-                    <button type="submit" class="bg-primary-dark text-neutral-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-red-700 transition duration-300 ease-in-out transform hover:scale-105">
-                        Send Message
-                    </button>
-                </form>
-            </div>
+            <a href="mailto:luminawebsolutions@gmail.com" class="btn-primary text-white font-semibold py-4 px-10 rounded-full text-lg shadow-lg inline-block">
+                Contact Us
+            </a>
         </div>
     </section>
 
-    <!-- REDESIGNED Footer Section -->
-    <footer class="bg-primary-dark text-neutral-white pt-16 pb-8 px-6">
-        <div class="container mx-auto max-w-6xl">
-            <!-- NEW: Mobile-first 2-column grid -->
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-12 text-center md:text-left">
-                <!-- Column 1: Logo & About -->
-                <!-- NEW: Spans 2 cols on mobile -->
-                <div class="col-span-2 text-center md:text-left">
-                    <a href="#" class="inline-block mb-4" aria-label="Fast Electro Mechanic Solutions Home">
-                        <svg class="h-16 w-auto" viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M28.431 10.431L18.214 28.334H33.078L22.861 10.431H28.431ZM20.301 30.556L10 46.875V10H16.126L26.343 27.903H11.479L21.696 45.806L31.913 27.903H37L26.783 44.222L37 60H30.874L20.301 42.097V60H14.431V30.556H20.301Z" fill="#FFFFFF"/>
-                            <text x="45" y="36" font-family="Inter, sans-serif" font-size="20" font-weight="800" fill="#FFFFFF">FAST</text>
-                            <text x="105" y="36" font-family="Inter, sans-serif" font-size="20" font-weight="600" fill="#FFFFFF">ELECTRO</text>
-                            <rect x="45" y="40" width="150" height="3" fill="#FF0000"/>
-                        </svg>
-                    </a>
-                    <p class="text-sm text-gray-400">
-                        Your trusted partner for 25 years in expert electrical and plumbing solutions in Kerala.
-                    </p>
-                </div>
-                
-                <!-- Column 2: Quick Links -->
-                <div class="text-center sm:text-left">
-                    <h4 class="text-lg font-semibold text-neutral-white mb-4">Quick Links</h4>
-                    <ul class="space-y-3">
-                        <li><a href="#about" class="text-gray-400 hover:text-accent-red transition duration-300">About Us</a></li>
-                        <li><a href="#services" class="text-gray-400 hover:text-accent-red transition duration-300">Services</a></li>
-                        <li><a href="#work-and-news" class="text-gray-400 hover:text-accent-red transition duration-300">Our Work</a></li>
-                        <li><a href="#work-and-news" class="text-gray-400 hover:text-accent-red transition duration-300">Blog</a></li>
-                        <li><a href="#contact" class="text-gray-400 hover:text-accent-red transition duration-300">Contact</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 3: Contact Info -->
-                <div class="text-center sm:text-left">
-                    <h4 class="text-lg font-semibold text-neutral-white mb-4">Contact Us</h4>
-                    <ul class="space-y-3 text-gray-400">
-                        <li class="flex items-center justify-center sm:justify-start space-x-2">
-                            <i class="fas fa-map-marker-alt fa-fw text-accent-red"></i>
-                            <span>Vellikulam, Kerala, India</span>
-                        </li>
-                        <li class="flex items-center justify-center sm:justify-start space-x-2">
-                            <i class="fas fa-phone-alt fa-fw text-accent-red"></i>
-                            <a href="tel:+919562773436" class="hover:text-accent-red transition duration-300">+91 95627 73436</a>
-                        </li>
-                        <li class="flex items-center justify-center sm:justify-start space-x-2">
-                            <i class="fas fa-envelope fa-fw text-accent-red"></i>
-                            <a href="mailto:jobinkuriankuriankottarathil@gmail.com" class="hover:text-accent-red transition duration-300 text-xs sm:text-sm">jobinkuriankuriankottarathil@gmail.com</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Column 4: Social Media (Moves to new row on mobile) -->
-                <div class="col-span-2 lg:col-span-1 text-center md:text-left">
-                    <h4 class="text-lg font-semibold text-neutral-white mb-4">Follow Us</h4>
-                    <div class="flex justify-center md:justify-start space-x-5 text-2xl">
-                        <a href="https://www.instagram.com/__fast_electro_mechanical_?igsh=MWcxOHh0eXh5dXpobQ==" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-accent-red transition duration-300 transform hover:scale-110">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://m.facebook.com/jobinkuriankottarathil/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-accent-red transition duration-300 transform hover:scale-110">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="https://wa.me/919562773436" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-accent-red transition duration-300 transform hover:scale-110">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a href="#" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-accent-red transition duration-300 transform hover:scale-110">
-                            <i class="fab fa-x-twitter"></i>
-                        </a>
+    <!-- Footer -->
+    <footer class="bg-[#101010] text-gray-400">
+        <div class="container mx-auto px-6 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="md:col-span-1"><h3 class="text-2xl font-bold text-white mb-4">LUMINA<span class="accent-blue">.</span></h3><p>Crafting digital experiences that captivate, engage, and convert. We are your partners in digital growth.</p></div>
+                <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div><h4 class="font-semibold text-white mb-4">Navigate</h4><ul><li class="mb-2"><a href="#services" class="nav-link text-gray-400">Services</a></li><li class="mb-2"><a href="#labs" class="nav-link text-gray-400">Lumina Labs</a></li><li class="mb-2"><a href="#projects" class="nav-link text-gray-400">Projects</a></li><li class="mb-2"><a href="#testimonials" class="nav-link text-gray-400">Reviews</a></li><li class="mb-2"><a href="#contact" class="nav-link text-gray-400">Contact</a></li></ul></div>
+                    <div><h4 class="font-semibold text-white mb-4">Contact Us</h4><ul><li class="mb-2"><a href="mailto:luminawebsolutions@gmail.com" class="nav-link text-gray-400">luminawebsolutions@gmail.com</a></li><li class="mb-2">Lumina Web Solutions,<br>Changanassery</li></ul></div>
+                    <div>
+                        <h4 class="font-semibold text-white mb-4">Follow Us</h4>
+                        <div class="flex space-x-4">
+                            <!-- Social Icons -->
+                            <a href="https://www.facebook.com/share/17fxyTcgmQ/" target="_blank" class="nav-link text-gray-400 hover:text-blue-600"><i class="fab fa-facebook text-xl"></i></a>
+                            <a href="https://www.instagram.com/luminawebsolutions/" target="_blank" class="nav-link text-gray-400 hover:text-pink-500"><i class="fab fa-instagram text-xl"></i></a>
+                            <a href="https://www.threads.net/@buildwithlumina" target="_blank" class="nav-link text-gray-400 hover:text-white"><i class="fab fa-threads text-xl"></i></a>
+                            <a href="https://twitter.com" target="_blank" class="nav-link text-gray-400 hover:text-blue-400"><i class="fab fa-twitter text-xl"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Bottom Bar -->
-            <div class="border-t border-gray-700 mt-12 pt-8 text-center text-sm text-gray-500">
-                <p>&copy; 2025 Fast Electro Mechanic Solutions. All rights reserved.</p>
-                
-                <!-- NEW Lumina Logo -->
-                <a href="https://luminaweb.vercel.app/" target="_blank" rel="noopener noreferrer" class="lumina-power-footer" title="Powered by Lumina Web Solutions">
+            
+            <!-- Footer Logo -->
+            <div class="mt-16 pt-8 border-t border-gray-800 text-center">
+                <a href="#" class="lumina-power-footer" title="Powered by Lumina Web Solutions">
                     <span class="lumina-power-text">Powered by</span>
                     <div class="lumina-logo-container">
                         <div class="lumina-logo-text">
-                            <span>LUMINA</span><span class="accent">.</span>
+                            <span>LUMINA</span><span class="accent-blue">.</span>
                         </div>
                         <div class="lumina-logo-tagline">
                             WEB SOLUTIONS
                         </div>
                     </div>
                 </a>
-                
-                <div class="flex justify-center space-x-4 mt-4">
-                    <a href="#" class="hover:text-accent-red transition duration-300 ease-in-out">Privacy Policy</a>
-                    <a href="#" class="hover:text-accent-red transition duration-3g00 ease-in-out">Terms of Service</a>
-                </div>
+                <p class="text-xs text-gray-600 mt-4">&copy; 2025 Lumina Web Solutions. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Firebase SDK Scripts -->
+    <!-- Review Modal -->
+    <div id="review-modal">
+        <div class="modal-content">
+            <h3 class="text-xl font-bold text-white mb-4">Write a Review</h3>
+            <form id="review-form">
+                <input type="text" id="reviewer-name" placeholder="Your Name" class="form-input" required>
+                <input type="text" id="reviewer-role" placeholder="Your Role (e.g. CEO, Tech Corp)" class="form-input" required>
+                <textarea id="reviewer-text" placeholder="Your Feedback..." class="form-input h-32 resize-none" required></textarea>
+                <div class="flex justify-end gap-4 mt-4">
+                    <button type="button" id="cancel-review-btn" class="px-4 py-2 rounded bg-gray-700 text-white hover:bg-gray-600 transition">Cancel</button>
+                    <button type="submit" class="btn-primary px-6 py-2 rounded transition">Submit Review</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase Logic -->
     <script type="module">
-        // Import Firebase modules
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { 
-            getFirestore, 
-            collection, 
-            onSnapshot, // Using onSnapshot for real-time updates
-            setLogLevel
-        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+        import { getFirestore, collection, query, orderBy, onSnapshot, addDoc } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-firestore.js";
 
-        // --- NEW FIREBASE CONFIG ---
         const firebaseConfig = {
-            apiKey: "AIzaSyC2LGYQeZxGPLrqPu9SmI_jnyfEFb_1ERM",
-            authDomain: "fast-electromechanic-sol-64831.firebaseapp.com",
-            projectId: "fast-electromechanic-sol-64831",
-            storageBucket: "fast-electromechanic-sol-64831.firebasestorage.app",
-            messagingSenderId: "1086586935220",
-            appId: "1:1086586935220:web:22a964fd9e38c6598084e1",
-            measurementId: "G-84YKKFDT01"
+            apiKey: "AIzaSyDye2ZMJOstA80slJc2V8wNdCcMtFCnRDM",
+            authDomain: "lumina-planner.firebaseapp.com",
+            projectId: "lumina-planner",
+            storageBucket: "lumina-planner.firebasestorage.app",
+            messagingSenderId: "281928148765",
+            appId: "1:281928148765:web:81699f1c9502141db563f4"
         };
-        
-        // Use projectId as the appId for database paths
-        const appId = firebaseConfig.projectId; 
-        
-        // Initialize Firebase
-        let app, db;
-        try {
-            app = initializeApp(firebaseConfig);
-            db = getFirestore(app);
-            setLogLevel('debug'); // For development, shows logs
-            console.log("Firebase Initialized Successfully.");
-        } catch (e) {
-            console.error("Error initializing Firebase: ", e);
-            document.body.innerHTML = `<div style="padding: 2rem; text-align: center; font-size: 1.2rem; color: red;">Error: Could not connect to the database. Please check Firebase configuration.</div>`;
-        }
 
-        // --- COLLECTION REFERENCES ---
-        // Using the public path structure
-        const blogCollection = collection(db, `artifacts/${appId}/public/data/blog`);
-        const projectsCollection = collection(db, `artifacts/${appId}/public/data/projects`);
-        const galleryCollection = collection(db, `artifacts/${appId}/public/data/gallery`);
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
+        // 1. Load Projects Dynamically
+        const projectsQ = query(collection(db, "portfolio"), orderBy("createdAt", "desc"));
+        const projectGrid = document.getElementById('dynamic-projects-grid');
 
-        // --- LOAD DYNAMIC CONTENT WITH REAL-TIME LISTENER ---
-        
-        // 1. Load Blog Posts
-        function loadBlogPosts() {
-            const container = document.getElementById('blog-posts-container');
-            if (!container) return; // Safety check
-            
-            onSnapshot(blogCollection, (querySnapshot) => {
-                container.innerHTML = ''; // Clear existing content
-                if (querySnapshot.empty) {
-                    container.innerHTML = '<p class="text-lg text-gray-700 col-span-full">No blog posts found. Check back soon!</p>';
-                    return;
-                }
+        onSnapshot(projectsQ, (snapshot) => {
+            projectGrid.innerHTML = '';
+            if(snapshot.empty) {
+                projectGrid.innerHTML = '<p class="text-gray-500 col-span-2 text-center">New projects coming soon...</p>';
+                return;
+            }
+
+            snapshot.forEach(doc => {
+                const p = doc.data();
+                // Use a placeholder if no image, but generally we won't use image now, just URL icon
+                const imageUrl = `https://placehold.co/800x600/1a1a1a/FFF?text=${encodeURIComponent(p.title)}`;
                 
-                querySnapshot.forEach((doc) => {
-                    const post = doc.data();
-                    // Create card for public site
-                    const postDate = post.createdAt?.toDate ? new Date(post.createdAt.toDate()) : new Date();
-                    // NEW: Updated mobile sizing
-                    const postCard = `
-                        <div class="w-4/5 sm:w-3/5 md:w-full flex-shrink-0 bg-neutral-white rounded-2xl shadow-xl overflow-hidden border border-neutral-light-gray text-left transition duration-300 transform hover:shadow-2xl hover:-translate-y-1">
-                            <div class="p-6">
-                                <h3 class="text-xl font-semibold text-primary-dark mb-2">${post.title || 'Blog Post'}</h3>
-                                <p class="text-gray-500 text-sm mb-4">${postDate.toLocaleDateString()}</p>
-                                <p class="text-gray-700 text-base mb-4">${post.content || '...'}</p>
-                                <a href="#" class="font-bold text-accent-red hover:text-red-700">Read More &rarr;</a>
+                const html = `
+                    <a href="${p.siteUrl}" target="_blank" class="group cursor-pointer fade-in-section is-visible block">
+                        <div class="overflow-hidden rounded-lg mb-4 border border-gray-800 relative bg-gray-900 h-64 flex items-center justify-center">
+                            <!-- Fallback visual using Title -->
+                            <div class="text-center p-6">
+                                <h3 class="text-2xl font-bold text-gray-700 group-hover:text-blue-500 transition">${p.title}</h3>
+                                <i class="fas fa-external-link-alt text-4xl text-gray-800 mt-4 group-hover:text-blue-600 transition transform group-hover:scale-110"></i>
+                            </div>
+                            
+                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-80 transition duration-300 flex items-center justify-center">
+                                <span class="text-white opacity-0 group-hover:opacity-100 border border-white px-4 py-2 rounded font-medium transform translate-y-4 group-hover:translate-y-0 transition duration-300">Visit Live Site</span>
                             </div>
                         </div>
-                    `;
-                    container.innerHTML += postCard;
-                });
-            }, (error) => {
-                console.error("Error loading blog posts: ", error);
-                container.innerHTML = '<p class="text-lg text-red-500 col-span-full">Error loading blog posts.</p>';
+                        <h3 class="text-xl font-bold text-white group-hover:text-blue-500 transition flex items-center">
+                            ${p.title} 
+                        </h3>
+                        <p class="text-sm text-gray-400">${p.category}</p>
+                    </a>
+                `;
+                projectGrid.innerHTML += html;
             });
-        }
-        
-        // 2. Load Projects
-        function loadProjects() {
-            const container = document.getElementById('projects-container');
-            if (!container) return; // Safety check
-            
-            onSnapshot(projectsCollection, (querySnapshot) => {
-                container.innerHTML = ''; // Clear existing content
-                if (querySnapshot.empty) {
-                    container.innerHTML = '<p class="text-lg text-gray-700 col-span-full">No projects to display. Check back soon!</p>';
-                    return;
-                }
-                
-                querySnapshot.forEach((doc) => {
-                    const project = doc.data();
-                    // Create card for public site
-                    // NEW: Updated mobile sizing
-                    const projectCard = `
-                        <div class="w-4/5 sm:w-3/5 md:w-full flex-shrink-0 bg-neutral-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 ease-in-out transform hover:-translate-y-1 border border-neutral-light-gray">
-                            <img src="${project.imageUrl || 'https://placehold.co/600x400/000000/F8F8F8?text=Project+Image'}" alt="${project.title || 'Project'}" class="w-full h-56 object-cover" onerror="this.onerror=null; this.src='https://placehold.co/600x400/000000/F8F8F8?text=Image+Missing';">
-                            <div class="p-6 text-left">
-                                <h3 class="text-xl font-semibold text-primary-dark mb-2">${project.title || 'Project Title'}</h3>
-                                <p class="text-gray-700 text-base">${project.description || '...'}</p>
+        });
+
+        // 2. Load Reviews Dynamically
+        const reviewsQ = query(collection(db, "reviews"), orderBy("createdAt", "desc"));
+        const reviewsGrid = document.getElementById('reviews-grid');
+
+        onSnapshot(reviewsQ, (snapshot) => {
+            reviewsGrid.innerHTML = '';
+            if(snapshot.empty) {
+                // Fallback static reviews if none exist
+                reviewsGrid.innerHTML = `
+                    <div class="bg-gray-800 p-8 rounded-lg border border-gray-700">
+                        <i class="fas fa-quote-left text-4xl accent-blue mb-4"></i>
+                        <p class="text-gray-300 italic mb-6">"Lumina Web Solutions transformed our online presence. The new website is fast, beautiful, and our customers love it."</p>
+                        <div class="flex items-center">
+                            <div class="h-12 w-12 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold text-lg">A</div>
+                            <div class="ml-4">
+                                <h4 class="font-semibold text-white text-lg">Asha K.</h4>
+                                <p class="text-sm text-gray-400">Local Business Owner</p>
                             </div>
                         </div>
-                    `;
-                    container.innerHTML += projectCard;
-                });
-            }, (error) => {
-                console.error("Error loading projects: ", error);
-                container.innerHTML = '<p class="text-lg text-red-500 col-span-full">Error loading projects.</p>';
-            });
-        }
-        
-        // 3. Load Gallery Images
-        function loadGalleryImages() {
-            const container = document.getElementById('slideshow-container-dynamic');
-            if (!container) return; // Safety check
-            
-            onSnapshot(galleryCollection, (querySnapshot) => {
-                // Clear all BUT the prev/next buttons
-                container.querySelectorAll('.mySlides').forEach(el => el.remove());
-                container.querySelectorAll('p').forEach(el => el.remove()); // Remove loading text
-                
-                if (querySnapshot.empty) {
-                    container.insertAdjacentHTML('afterbegin', '<p class="text-lg text-primary-dark p-10">No gallery images found.</p>');
-                    return;
-                }
-                
-                querySnapshot.forEach((doc) => {
-                    const image = doc.data();
-                    // Create slide for public site
-                    const slide = `
-                        <div class="mySlides fade">
-                            <img src="${image.imageUrl}" alt="${image.altText || 'Gallery Image'}" onerror="this.onerror=null; this.src='https://placehold.co/1200x800/000000/F8F8F8?text=Gallery+Image+Missing';">
+                    </div>
+                `;
+                return;
+            }
+
+            snapshot.forEach(doc => {
+                const r = doc.data();
+                const initial = r.name.charAt(0).toUpperCase();
+                const html = `
+                    <div class="bg-gray-800 p-8 rounded-lg border border-gray-700 fade-in-section is-visible">
+                        <i class="fas fa-quote-left text-4xl accent-blue mb-4"></i>
+                        <p class="text-gray-300 italic mb-6">"${r.text}"</p>
+                        <div class="flex items-center">
+                            <div class="h-12 w-12 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-lg">${initial}</div>
+                            <div class="ml-4">
+                                <h4 class="font-semibold text-white text-lg">${r.name}</h4>
+                                <p class="text-sm text-gray-400">${r.role}</p>
+                            </div>
                         </div>
-                    `;
-                    // Insert slide *before* the prev/next buttons
-                    container.insertAdjacentHTML('afterbegin', slide);
-                });
-                
-                // Re-initialize the slideshow
-                slideIndex = 0; // Reset index
-                showSlides(); // Start the slideshow
-                
-            }, (error) => {
-                console.error("Error loading gallery: ", error);
-                container.insertAdjacentHTML('afterbegin', '<p class="text-lg text-red-500 p-10">Error loading gallery.</p>');
+                    </div>
+                `;
+                reviewsGrid.innerHTML += html;
             });
-        }
+        });
 
-        // --- NEW: TAB INITIALIZATION ---
-        function initTabs() {
-            const tabContainer = document.getElementById('tabs-nav');
-            if (!tabContainer) return; // Don't run if tabs aren't on the page
+        // 3. Handle Review Form
+        const reviewModal = document.getElementById('review-modal');
+        const reviewForm = document.getElementById('review-form');
+        const writeReviewBtn = document.getElementById('write-review-btn');
+        const cancelReviewBtn = document.getElementById('cancel-review-btn');
 
-            const tabButtons = tabContainer.querySelectorAll('.tab-button');
+        writeReviewBtn.addEventListener('click', () => { reviewModal.style.display = 'flex'; });
+        cancelReviewBtn.addEventListener('click', () => { reviewModal.style.display = 'none'; });
+
+        reviewForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('reviewer-name').value;
+            const role = document.getElementById('reviewer-role').value;
+            const text = document.getElementById('reviewer-text').value;
             
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const targetPanelId = button.dataset.target;
-                    const targetPanel = document.getElementById(targetPanelId);
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.textContent;
+            btn.textContent = "Submitting...";
+            btn.disabled = true;
 
-                    // Remove active class from all buttons and panels
-                    tabContainer.querySelector('.tab-button.active').classList.remove('active');
-                    document.querySelector('.tab-panel.active').classList.remove('active');
+            try {
+                await addDoc(collection(db, "reviews"), {
+                    name, role, text, createdAt: new Date()
+                });
+                reviewModal.style.display = 'none';
+                reviewForm.reset();
+                alert("Thank you for your review!");
+            } catch (error) {
+                console.error("Review error:", error);
+                alert("Error submitting review. Please try again.");
+            } finally {
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
+        });
 
-                    // Add active class to the clicked button and target panel
-                    button.classList.add('active');
-                    targetPanel.classList.add('active');
+    </script>
 
-                    // Special check for slideshow: re-initialize if it's the target
-                    if (targetPanelId === 'gallery-panel') {
-                        slideIndex = 0;
-                        showSlides();
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- Preloader ---
+            const preloader = document.getElementById('preloader');
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    preloader.classList.add('loaded');
+                }, 1250); 
+            });
+
+            // --- Sticky Header ---
+            const header = document.getElementById('header');
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    header.classList.add('bg-[#0a0a0a]/80', 'backdrop-blur-sm', 'shadow-lg');
+                    if (window.scrollY > lastScrollY) {
+                        header.style.transform = 'translateY(-100%)';
+                    } else {
+                        header.style.transform = 'translateY(0)';
+                    }
+                    lastScrollY = window.scrollY;
+                } else {
+                    header.classList.remove('bg-[#0a0a0a]/80', 'backdrop-blur-sm', 'shadow-lg');
+                    header.style.transform = 'translateY(0)';
+                }
+            });
+            
+            // --- CSS Scroll Animations ---
+            const sections = document.querySelectorAll('.fade-in-section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // --- Timeline Animation ---
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const timelineObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            timelineItems.forEach(item => {
+                timelineObserver.observe(item);
+            });
+
+            // --- Service Card Mouse Glow Effect ---
+            const cards = document.querySelectorAll('.service-card');
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty('--x', `${(x / rect.width) * 100}%`);
+                    card.style.setProperty('--y', `${(y / rect.height) * 100}%`);
+                });
+            });
+
+            // --- Mobile Menu Toggle ---
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const iconOpen = document.getElementById('menu-icon-open');
+            const iconClose = document.getElementById('menu-icon-close');
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+
+            function toggleMenu() {
+                mobileMenu.classList.toggle('hidden');
+                iconOpen.classList.toggle('hidden');
+                iconClose.classList.toggle('hidden');
+            }
+
+            menuBtn.addEventListener('click', toggleMenu);
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', toggleMenu);
+            });
+
+
+            // --- Smooth Scrolling for ALL anchor links ---
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') {
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    if (targetId && targetId.startsWith('#')) {
+                        e.preventDefault();
+                        try {
+                            const targetElement = document.querySelector(targetId);
+                            if (targetElement) {
+                                targetElement.scrollIntoView({
+                                    behavior: 'smooth'
+                                });
+                            }
+                        } catch (error) {
+                            console.warn("Invalid selector:", targetId);
+                        }
                     }
                 });
             });
-        }
-
-        // --- RUN ON PAGE LOAD ---
-        document.addEventListener('DOMContentLoaded', () => {
-           
-           // --- NEW HEADER SCROLL FIX ---
-           const header = document.querySelector('.main-header');
-           
-           function setScrollPadding() {
-               if (header) {
-                   const headerHeight = header.offsetHeight;
-                   document.documentElement.style.scrollPaddingTop = headerHeight + 'px';
-               }
-           }
-           
-           setScrollPadding(); // Set on initial load
-           window.addEventListener('resize', setScrollPadding); // Update on window resize
-           // --- END HEADER SCROLL FIX ---
-           
-            if (app) {
-               // Load all content directly
-               loadBlogPosts();
-               loadProjects();
-               loadGalleryImages();
-            }
-
-            // Mobile Nav Toggle
-            const hamburger = document.getElementById('hamburger');
-            const mobileNav = document.getElementById('mobile-nav');
-            const navLinks = mobileNav.querySelectorAll('a');
             
-            if (hamburger && mobileNav) {
-                hamburger.addEventListener('click', () => {
-                    mobileNav.classList.toggle('active');
-                    hamburger.closest('.main-header').classList.toggle('nav-open');
+            // --- Custom Cursor Logic for Desktop Only ---
+            const cursorFollower = document.querySelector('.cursor-follower');
+            const interactiveElements = document.querySelectorAll('a, button, .magnetic-item, .service-card');
+            
+            if (window.matchMedia("(hover: hover)").matches) {
+                gsap.set(cursorFollower, { xPercent: -50, yPercent: -50 });
+                let mouseX = 0, mouseY = 0;
+                window.addEventListener('mousemove', e => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                    gsap.to(cursorFollower, 0.3, { x: mouseX, y: mouseY, ease: "power2.out" });
                 });
-                
-                navLinks.forEach(link => {
-                    link.addEventListener('click', () => {
-                        mobileNav.classList.remove('active');
-                        hamburger.closest('.main-header').classList.remove('nav-open');
-                    });
+
+                interactiveElements.forEach(el => {
+                    el.addEventListener('mouseenter', () => cursorFollower.classList.add('hovered'));
+                    el.addEventListener('mouseleave', () => cursorFollower.classList.remove('hovered'));
                 });
+            } else {
+                // Hide cursor on non-hover devices (mobile/tablet)
+                if(cursorFollower) cursorFollower.style.display = 'none';
             }
 
-            // Initialize tabs
-            initTabs();
         });
-        
-        // --- SLIDESHOW SCRIPT ---
-        // Needs to be global to be called by onclick and loadGalleryImages
-        let slideIndex = 0;
-        let slideshowInterval; 
-
-        function showSlides() {
-            let i;
-            let slides = document.getElementsByClassName("mySlides");
-            if (slides.length === 0) return; // Don't run if no slides
-            
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            slideIndex++;
-            if (slideIndex > slides.length) {slideIndex = 1}
-            slides[slideIndex-1].style.display = "block";
-            
-            clearTimeout(slideshowInterval);
-            slideshowInterval = setTimeout(showSlides, 5000); // Change image every 5 seconds
-        }
-
-        // Make functions globally accessible for onclick
-        window.plusSlides = function(n) {
-            showSpecificSlide(slideIndex += n);
-        }
-
-        function showSpecificSlide(n) {
-            let i;
-            let slides = document.getElementsByClassName("mySlides");
-            if (slides.length === 0) return;
-            
-            if (n > slides.length) {slideIndex = 1}
-            if (n < 1) {slideIndex = slides.length}
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            slides[slideIndex-1].style.display = "block";
-            
-            clearTimeout(slideshowInterval);
-            slideshowInterval = setTimeout(showSlides, 5000);
-        }
-        
     </script>
-
 </body>
 </html>
