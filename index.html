@@ -3,804 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumina Web Solutions - Digital Experiences That Shine</title>
-    
-    <!-- Favicon from your GitHub URL -->
-    <link rel="icon" href="https://raw.githubusercontent.com/alfin-7736/Lumina-Compas/6f60b90340697b796accdf20cc4b1f7059c93c27/Screenshot%202025-09-28%20121335.png">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: Poppins -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- GSAP (GreenSock Animation Platform) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
-    
-    <!-- Icons Library -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
+    <title>Water Level Monitor</title>
     <style>
-        /* Custom Styles */
-        html {
-            scroll-behavior: smooth;
-        }
+        /* --- CSS STYLES --- */
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #0a0a0a;
-            color: #e0e0e0;
-            overflow-x: hidden;
-            cursor: auto;
-            opacity: 1;
-        }
-        /* SIMPLE CSS Preloader */
-        #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background-color: #0a0a0a;
-            z-index: 10000;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
             display: flex;
             justify-content: center;
             align-items: center;
-            opacity: 1;
-            transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
-            visibility: visible;
-        }
-        #preloader.loaded {
-            opacity: 0;
-            visibility: hidden;
-        }
-        #preloader .preloader-logo {
-            width: 300px;
-            max-width: 80%;
-            animation: pulse 1.5s ease-in-out infinite; 
-            border: none; 
-            outline: none; 
+            height: 100vh;
+            margin: 0;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(0.95); }
+        /* Phone Container */
+        .app-container {
+            width: 350px;
+            height: 650px;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border: 8px solid #333;
         }
 
-        .hero-bg {
-            background-color: #0a0a0a;
-            background-image: radial-gradient(#1a1a1a 1px, transparent 1px);
-            background-size: 20px 20px;
+        /* Header */
+        .header {
+            background-color: #fff;
+            padding: 20px;
+            text-align: center;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .header h2 {
+            margin: 0;
+            color: #333;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .status-dot {
+            height: 10px;
+            width: 10px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        /* The Tank Visualization */
+        .tank-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f9f9f9;
             position: relative;
         }
-        .hero-glow {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(0, 123, 255, 0.15) 0%, rgba(0, 123, 255, 0) 60%);
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-        }
-        .accent-blue {
-            color: #007BFF;
-        }
-        
-        /* Button Styles */
-        .btn-primary {
-            background-color: #007BFF;
-            transition: all 0.3s ease;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 123, 255, 0.2);
-        }
-        .btn-outline {
-            border: 1px solid #333;
-            background: transparent;
-            transition: all 0.3s ease;
-        }
-        .btn-outline:hover {
-            border-color: #007BFF;
-            color: #007BFF;
+
+        .tank-glass {
+            width: 180px;
+            height: 280px;
+            border: 4px solid #e0e0e0;
+            background: white;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden; /* Clips the water inside */
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
         }
 
-        .nav-link {
-            transition: color 0.3s ease;
-            position: relative;
-            padding-bottom: 4px;
-        }
-        .nav-link::after {
-            content: '';
+        /* The Water Liquid */
+        .water {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 2px;
-            background-color: #007BFF;
-            transform: scaleX(0);
-            transform-origin: bottom right;
-            transition: transform 0.3s ease-out;
-        }
-        .nav-link:hover::after {
-            transform: scaleX(1);
-            transform-origin: bottom left;
-        }
-        .nav-link:hover {
-            color: #fff;
-        }
-        
-        .service-card {
-            background-color: #121212;
-            border: 1px solid #222;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .service-card:hover {
-            border-color: #007BFF;
-            transform: translateY(-5px);
-        }
-        
-        /* Labs Card */
-        .lab-card {
-            background: linear-gradient(145deg, #1a1a1a, #111);
-            border: 1px solid #333;
-            transition: all 0.3s ease;
-        }
-        .lab-card:hover {
-            border-color: #007BFF;
-            box-shadow: 0 0 30px rgba(0, 123, 255, 0.15);
-            transform: translateY(-5px);
+            height: 50%; /* Default starting level */
+            background: linear-gradient(180deg, #4facfe 0%, #00f2fe 100%);
+            transition: height 0.5s ease-out, background 0.5s;
         }
 
-        .timeline-item::before {
-            content: '';
+        /* The Wave Animation on top of water */
+        .water::before {
+            content: "";
             position: absolute;
-            left: 1.25rem;
-            top: 1.25rem;
-            bottom: -1.25rem;
-            width: 2px;
-            background-color: #333;
-            transform: translateX(-50%);
-        }
-        .timeline-item:last-child::before {
-            display: none;
-        }
-        .timeline-dot {
-            border: 2px solid #333;
-            transition: all 0.3s ease;
-        }
-        .timeline-item.is-visible .timeline-dot {
-            background-color: #007BFF;
-            border-color: #007BFF;
-        }
-        
-        .section-title-line {
-            width: 80px;
-            height: 3px;
-            background-color: #007BFF;
-            border-radius: 2px;
-            margin-top: 8px;
-        }
-        .clip-text {
-            overflow: hidden;
-        }
-        
-        /* CSS Scroll Animation */
-        .fade-in-section {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 1s cubic-bezier(0.645, 0.045, 0.355, 1), transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
-        }
-        .fade-in-section.is-visible {
-            opacity: 1;
-            transform: translateY(0);
+            width: 200%;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.4);
+            top: -10px;
+            left: -50%;
+            border-radius: 40%;
+            animation: wave 3s infinite linear;
         }
 
-        /* Mobile Menu Styles */
-        #mobile-menu {
-            transition: opacity 0.3s ease-in-out;
-        }
-        
-        /* Instagram Banner */
-        .insta-banner {
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        @keyframes wave {
+            0% { transform: translateX(0) rotate(0deg); }
+            100% { transform: translateX(25%) rotate(360deg); }
         }
 
-        /* Form Styles */
-        .form-input {
-            background-color: #1f2937; border: 1px solid #374151; color: white;
-            width: 100%; padding: 12px; border-radius: 8px; margin-bottom: 15px;
-            transition: border-color 0.3s;
-        }
-        .form-input:focus {
-            outline: none;
-            border-color: #007BFF;
-        }
-
-        /* Modal Styles */
-        #review-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 50;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-        }
-        .modal-content {
-            background: #121212;
-            padding: 2rem;
-            border-radius: 12px;
-            width: 100%;
-            max-width: 500px;
-            border: 1px solid #333;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-
-        /* Custom Cursor - Hide on mobile to prevent sticking */
-        .cursor-follower {
-            position: fixed;
-            top: 0; left: 0; width: 30px; height: 30px;
-            background-color: rgba(0, 123, 255, 0.5);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
+        /* Data Overlay */
+        .percentage-display {
+            position: absolute;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
-            transition: width 0.3s, height 0.3s, background-color 0.3s, transform 0.1s linear;
-            backdrop-filter: blur(2px);
-        }
-        .cursor-follower.hovered {
-            width: 60px; height: 60px;
-            background-color: rgba(0, 123, 255, 0.2);
-        }
-        @media (hover: none) {
-            .cursor-follower { display: none; }
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            text-shadow: 0 2px 5px rgba(255,255,255,0.8);
+            z-index: 5;
         }
         
-        /* Footer Logo Styles */
-        .lumina-power-footer {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0.5rem;
-            text-decoration: none;
-            margin-top: 0.75rem;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
+        .percentage-symbol { font-size: 20px; color: #666; }
+
+        /* Footer Info */
+        .info-panel {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #eee;
         }
-        .lumina-power-footer:hover { opacity: 1; }
-        .lumina-power-text { font-size: 0.75rem; font-weight: 400; color: #9ca3af; }
-        .lumina-logo-container { line-height: 1.2; text-align: left; }
-        .lumina-logo-text { font-size: 1rem; font-weight: 700; color: #e0e0e0; letter-spacing: 0.05em; }
-        .lumina-logo-text .accent { color: #007BFF; }
-        .lumina-logo-tagline { font-size: 0.5rem; font-weight: 400; color: #9ca3af; letter-spacing: 0.2em; text-transform: uppercase; }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .info-value { font-weight: bold; color: #333; }
+
+        /* Simulation Slider (Remove this in final ESP code) */
+        .simulation-controls {
+            padding: 15px;
+            background: #eee;
+            text-align: center;
+        }
+        input[type=range] { width: 100%; cursor: pointer; }
+        .sim-label { font-size: 12px; color: #777; margin-bottom: 5px; display: block;}
+
+        /* Color States */
+        .low-level { background: linear-gradient(180deg, #ff9a9e 0%, #fecfef 100%) !important; }
+        .critical-text { color: #d32f2f !important; }
 
     </style>
 </head>
-<body class="antialiased">
+<body>
 
-    <!-- Preloader -->
-    <div id="preloader">
-        <img src="https://raw.githubusercontent.com/alfin-7736/Lumina-Compas/6f60b90340697b796accdf20cc4b1f7059c93c27/Screenshot%202025-09-28%20121335.png" alt="Lumina Web Solutions Logo" class="preloader-logo">
-    </div>
+    <div class="app-container">
+        <div class="header">
+            <div><span class="status-dot" id="connStatus"></span> <span id="connText">Online</span></div>
+            <h2>Main Tank</h2>
+        </div>
 
-    <!-- Custom Cursor -->
-    <div class="cursor-follower"></div>
-
-    <!-- Header -->
-    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-2xl font-bold tracking-wider">
-                LUMINA<span class="accent-blue">.</span>
-            </div>
-            <!-- Desktop Nav -->
-            <nav class="hidden md:flex items-center space-x-4">
-                <a href="#services" class="nav-link px-4 py-2 text-gray-300">Services</a>
-                <a href="#labs" class="nav-link px-4 py-2 text-gray-300">Labs</a>
-                <a href="#projects" class="nav-link px-4 py-2 text-gray-300">Projects</a>
-                <a href="#testimonials" class="nav-link px-4 py-2 text-gray-300">Reviews</a>
-                <a href="#contact" class="bg-gray-800/50 border border-gray-700 px-5 py-2 rounded-full text-gray-300 nav-link hover:bg-gray-700">Contact</a>
-            </nav>
-            <!-- Mobile Menu Button -->
-            <div class="md:hidden">
-                <button id="mobile-menu-btn" class="text-white z-50 relative">
-                    <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                    <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
+        <div class="tank-wrapper">
+            <div class="tank-glass">
+                <div class="percentage-display">
+                    <span id="percentText">50</span><span class="percentage-symbol">%</span>
+                </div>
+                <div class="water" id="waterLevel"></div>
             </div>
         </div>
-    </header>
 
-    <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-black bg-opacity-90 z-40 flex flex-col items-center justify-center space-y-8">
-        <a href="#services" class="text-3xl font-bold text-gray-300 nav-link">Services</a>
-        <a href="#labs" class="text-3xl font-bold text-gray-300 nav-link">Lumina Labs</a>
-        <a href="#projects" class="text-3xl font-bold text-gray-300 nav-link">Projects</a>
-        <a href="#testimonials" class="text-3xl font-bold text-gray-300 nav-link">Reviews</a>
-        <a href="#contact" class="text-3xl font-bold text-gray-300 nav-link">Contact</a>
-    </div>
-
-    <!-- Hero Section -->
-    <section class="hero-bg min-h-screen flex items-center justify-center text-center overflow-hidden pt-20">
-        <div class="hero-glow"></div>
-        <div class="container mx-auto px-6 relative z-10">
-            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tighter">
-                <div class="clip-text"><span class="hero-line block">We Build Digital</span></div>
-                <div class="clip-text"><span class="hero-line block">Experiences That</span></div>
-                <div class="clip-text"><span class="hero-line block accent-blue">Shine.</span></div>
-            </h1>
-            <p class="hero-subtext mt-6 max-w-2xl mx-auto text-lg md:text-xl text-gray-400">
-                Lumina Web Solutions crafts stunning websites and powerful digital strategies to elevate your brand in an ever-evolving online world.
-            </p>
-            <div class="hero-cta mt-10">
-                <a href="#contact" class="btn-primary text-white font-semibold py-3 px-8 rounded-full text-lg shadow-lg inline-block">
-                    Let's Create
-                </a>
+        <div class="info-panel">
+            <div class="info-row">
+                <span>Status</span>
+                <span class="info-value" id="statusText">Normal</span>
+            </div>
+            <div class="info-row">
+                <span>Distance</span>
+                <span class="info-value"><span id="distText">60</span> cm</span>
+            </div>
+            <div class="info-row">
+                <span>Last Updated</span>
+                <span class="info-value">Just now</span>
             </div>
         </div>
-    </section>
 
-    <!-- Services Section -->
-    <section id="services" class="py-16 md:py-24 bg-gray-800 fade-in-section">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="section-title text-3xl md:text-4xl font-bold">What We Craft</h2>
-                <div class="section-title-line mx-auto"></div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <div class="service-card p-8 rounded-lg">
-                    <div class="mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 accent-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg></div>
-                    <h3 class="text-2xl font-semibold mb-3">Web Design & Development</h3>
-                    <p class="text-gray-400">Creating visually stunning, user-friendly websites that are fast, responsive, and built for performance from the ground up.</p>
-                </div>
-                <div class="service-card p-8 rounded-lg">
-                    <div class="mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 accent-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg></div>
-                    <h3 class="text-2xl font-semibold mb-3">eCommerce Solutions</h3>
-                    <p class="text-gray-400">Building robust online stores with seamless checkout experiences, secure payment gateways, and easy inventory management.</p>
-                </div>
-                <div class="service-card p-8 rounded-lg">
-                    <div class="mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 accent-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></div>
-                    <h3 class="text-2xl font-semibold mb-3">SEO & Digital Marketing</h3>
-                    <p class="text-gray-400">Boosting your online visibility, driving organic traffic, and converting visitors into loyal customers through proven strategies.</p>
-                </div>
-                <div class="service-card p-8 rounded-lg">
-                    <div class="mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 accent-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 21v-1.5M15.75 3v1.5m0 16.5v-1.5M12 4.5v-1.5m0 18v-1.5" /><path d="M12 8.25a3.75 3.75 0 100 7.5 3.75 3.75 0 000-7.5zM12 15a.75.75 0 100-1.5.75.75 0 000 1.5z" /></svg></div>
-                    <h3 class="text-2xl font-semibold mb-3">AI & Web Applications</h3>
-                    <p class="text-gray-400">Developing intelligent, custom web apps like Lumina Compass that use AI to provide real value and advanced functionality.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Lumina Labs Section -->
-    <section id="labs" class="py-16 md:py-24 bg-[#0f0f0f] fade-in-section">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="section-title text-3xl md:text-4xl font-bold">Lumina Labs</h2>
-                <div class="section-title-line mx-auto"></div>
-                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Where we experiment with the future. Check out our live AI tools tailored for real-world needs.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <!-- Lab Project 1 -->
-                <div class="lab-card p-6 rounded-xl">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-xl font-bold text-white">Lumina Compass</h3>
-                        <span class="bg-blue-900 text-blue-200 text-xs px-2 py-1 rounded">AI Travel</span>
-                    </div>
-                    <p class="text-gray-400 mb-6">An intelligent travel planner that generates itineraries, budgets, and maps instantly.</p>
-                    <a href="https://lumina-compass.vercel.app/" target="_blank" class="btn-outline px-4 py-2 rounded text-sm text-white border border-white hover:border-blue-500 hover:text-blue-500 transition">Launch App <i class="fas fa-external-link-alt ml-1"></i></a>
-                </div>
-                <!-- Lab Project 2 -->
-                <div class="lab-card p-6 rounded-xl">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-xl font-bold text-white">QuickBill Pro</h3>
-                        <span class="bg-green-900 text-green-200 text-xs px-2 py-1 rounded">Finance Tool</span>
-                    </div>
-                    <p class="text-gray-400 mb-6">A fast, professional invoice generator for freelancers and small businesses.</p>
-                    <a href="#" class="btn-outline px-4 py-2 rounded text-sm text-white border border-white hover:border-blue-500 hover:text-blue-500 transition">Coming Soon</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Dynamic Completed Projects Section -->
-    <section id="projects" class="py-16 md:py-24 bg-gray-800 fade-in-section">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="section-title text-3xl md:text-4xl font-bold">Selected Works</h2>
-                <div class="section-title-line mx-auto"></div>
-            </div>
-            <!-- Projects Grid - Dynamically populated -->
-            <div id="dynamic-projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                 <p class="text-gray-500 text-center col-span-2">Loading projects...</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="py-16 md:py-24 bg-[#101010] fade-in-section">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="section-title text-3xl md:text-4xl font-bold">Client Reviews</h2>
-                <div class="section-title-line mx-auto"></div>
-                <!-- Write Review Button -->
-                <button id="write-review-btn" class="mt-6 btn-outline px-6 py-2 rounded-full text-sm font-semibold border-gray-600 text-gray-300 hover:border-blue-500 hover:text-blue-500 transition">
-                    <i class="fas fa-pen mr-2"></i> Write a Review
-                </button>
-            </div>
-            <!-- Reviews Grid - Dynamically populated -->
-            <div id="reviews-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <p class="text-gray-500 text-center col-span-2">Loading reviews...</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Instagram Banner -->
-    <section class="py-12 bg-black border-t border-gray-800 fade-in-section">
-        <div class="container mx-auto px-6 text-center">
-            <a href="https://instagram.com/luminawebsolutions" target="_blank" class="inline-flex items-center space-x-3 group">
-                <i class="fab fa-instagram text-4xl insta-banner transition transform group-hover:scale-110"></i>
-                <div class="text-left">
-                    <p class="text-gray-400 text-xs uppercase tracking-widest">Connect With Us</p>
-                    <h3 class="text-white font-bold text-xl group-hover:text-pink-500 transition">@luminawebsolutions</h3>
-                </div>
-            </a>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section id="contact" class="py-20 md:py-32 fade-in-section">
-        <div class="container mx-auto px-6 text-center">
-            <div class="clip-text"><h2 class="section-title text-4xl md:text-5xl font-extrabold mb-4">Ready to Illuminate</h2></div>
-            <div class="clip-text"><h2 class="section-title text-4xl md:text-5xl font-extrabold mb-8">Your Brand?</h2></div>
-            <p class="cta-subtitle max-w-xl mx-auto text-lg text-gray-400 mb-10">
-                Let's discuss how we can build something amazing together. Reach out to us for a free consultation.
-            </p>
-            <a href="mailto:luminawebsolutions@gmail.com" class="btn-primary text-white font-semibold py-4 px-10 rounded-full text-lg shadow-lg inline-block">
-                Contact Us
-            </a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-[#101010] text-gray-400">
-        <div class="container mx-auto px-6 py-16">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                <div class="md:col-span-1"><h3 class="text-2xl font-bold text-white mb-4">LUMINA<span class="accent-blue">.</span></h3><p>Crafting digital experiences that captivate, engage, and convert. We are your partners in digital growth.</p></div>
-                <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div><h4 class="font-semibold text-white mb-4">Navigate</h4><ul><li class="mb-2"><a href="#services" class="nav-link text-gray-400">Services</a></li><li class="mb-2"><a href="#labs" class="nav-link text-gray-400">Lumina Labs</a></li><li class="mb-2"><a href="#projects" class="nav-link text-gray-400">Projects</a></li><li class="mb-2"><a href="#testimonials" class="nav-link text-gray-400">Reviews</a></li><li class="mb-2"><a href="#contact" class="nav-link text-gray-400">Contact</a></li></ul></div>
-                    <div><h4 class="font-semibold text-white mb-4">Contact Us</h4><ul><li class="mb-2"><a href="mailto:luminawebsolutions@gmail.com" class="nav-link text-gray-400">luminawebsolutions@gmail.com</a></li><li class="mb-2">Lumina Web Solutions,<br>Changanassery</li></ul></div>
-                    <div>
-                        <h4 class="font-semibold text-white mb-4">Follow Us</h4>
-                        <div class="flex space-x-4">
-                            <!-- Social Icons -->
-                            <a href="https://www.facebook.com/share/17fxyTcgmQ/" target="_blank" class="nav-link text-gray-400 hover:text-blue-600"><i class="fab fa-facebook text-xl"></i></a>
-                            <a href="https://www.instagram.com/luminawebsolutions/" target="_blank" class="nav-link text-gray-400 hover:text-pink-500"><i class="fab fa-instagram text-xl"></i></a>
-                            <a href="https://www.threads.net/@buildwithlumina" target="_blank" class="nav-link text-gray-400 hover:text-white"><i class="fab fa-threads text-xl"></i></a>
-                            <a href="https://twitter.com" target="_blank" class="nav-link text-gray-400 hover:text-blue-400"><i class="fab fa-twitter text-xl"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Footer Logo -->
-            <div class="mt-16 pt-8 border-t border-gray-800 text-center">
-                <a href="#" class="lumina-power-footer" title="Powered by Lumina Web Solutions">
-                    <span class="lumina-power-text">Powered by</span>
-                    <div class="lumina-logo-container">
-                        <div class="lumina-logo-text">
-                            <span>LUMINA</span><span class="accent-blue">.</span>
-                        </div>
-                        <div class="lumina-logo-tagline">
-                            WEB SOLUTIONS
-                        </div>
-                    </div>
-                </a>
-                <p class="text-xs text-gray-600 mt-4">&copy; 2025 Lumina Web Solutions. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Review Modal -->
-    <div id="review-modal">
-        <div class="modal-content">
-            <h3 class="text-xl font-bold text-white mb-4">Write a Review</h3>
-            <form id="review-form">
-                <input type="text" id="reviewer-name" placeholder="Your Name" class="form-input" required>
-                <input type="text" id="reviewer-role" placeholder="Your Role (e.g. CEO, Tech Corp)" class="form-input" required>
-                <textarea id="reviewer-text" placeholder="Your Feedback..." class="form-input h-32 resize-none" required></textarea>
-                <div class="flex justify-end gap-4 mt-4">
-                    <button type="button" id="cancel-review-btn" class="px-4 py-2 rounded bg-gray-700 text-white hover:bg-gray-600 transition">Cancel</button>
-                    <button type="submit" class="btn-primary px-6 py-2 rounded transition">Submit Review</button>
-                </div>
-            </form>
+        <div class="simulation-controls">
+            <span class="sim-label">Simulation Slider (Test the UI)</span>
+            <input type="range" min="0" max="100" value="50" id="simSlider" oninput="updateSimulation(this.value)">
         </div>
     </div>
-
-    <!-- Firebase Logic -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
-        import { getFirestore, collection, query, orderBy, onSnapshot, addDoc } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyDye2ZMJOstA80slJc2V8wNdCcMtFCnRDM",
-            authDomain: "lumina-planner.firebaseapp.com",
-            projectId: "lumina-planner",
-            storageBucket: "lumina-planner.firebasestorage.app",
-            messagingSenderId: "281928148765",
-            appId: "1:281928148765:web:81699f1c9502141db563f4"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        // 1. Load Projects Dynamically
-        const projectsQ = query(collection(db, "portfolio"), orderBy("createdAt", "desc"));
-        const projectGrid = document.getElementById('dynamic-projects-grid');
-
-        onSnapshot(projectsQ, (snapshot) => {
-            projectGrid.innerHTML = '';
-            if(snapshot.empty) {
-                projectGrid.innerHTML = '<p class="text-gray-500 col-span-2 text-center">New projects coming soon...</p>';
-                return;
-            }
-
-            snapshot.forEach(doc => {
-                const p = doc.data();
-                // Use a placeholder if no image, but generally we won't use image now, just URL icon
-                const imageUrl = `https://placehold.co/800x600/1a1a1a/FFF?text=${encodeURIComponent(p.title)}`;
-                
-                const html = `
-                    <a href="${p.siteUrl}" target="_blank" class="group cursor-pointer fade-in-section is-visible block">
-                        <div class="overflow-hidden rounded-lg mb-4 border border-gray-800 relative bg-gray-900 h-64 flex items-center justify-center">
-                            <!-- Fallback visual using Title -->
-                            <div class="text-center p-6">
-                                <h3 class="text-2xl font-bold text-gray-700 group-hover:text-blue-500 transition">${p.title}</h3>
-                                <i class="fas fa-external-link-alt text-4xl text-gray-800 mt-4 group-hover:text-blue-600 transition transform group-hover:scale-110"></i>
-                            </div>
-                            
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-80 transition duration-300 flex items-center justify-center">
-                                <span class="text-white opacity-0 group-hover:opacity-100 border border-white px-4 py-2 rounded font-medium transform translate-y-4 group-hover:translate-y-0 transition duration-300">Visit Live Site</span>
-                            </div>
-                        </div>
-                        <h3 class="text-xl font-bold text-white group-hover:text-blue-500 transition flex items-center">
-                            ${p.title} 
-                        </h3>
-                        <p class="text-sm text-gray-400">${p.category}</p>
-                    </a>
-                `;
-                projectGrid.innerHTML += html;
-            });
-        });
-
-        // 2. Load Reviews Dynamically
-        const reviewsQ = query(collection(db, "reviews"), orderBy("createdAt", "desc"));
-        const reviewsGrid = document.getElementById('reviews-grid');
-
-        onSnapshot(reviewsQ, (snapshot) => {
-            reviewsGrid.innerHTML = '';
-            if(snapshot.empty) {
-                // Fallback static reviews if none exist
-                reviewsGrid.innerHTML = `
-                    <div class="bg-gray-800 p-8 rounded-lg border border-gray-700">
-                        <i class="fas fa-quote-left text-4xl accent-blue mb-4"></i>
-                        <p class="text-gray-300 italic mb-6">"Lumina Web Solutions transformed our online presence. The new website is fast, beautiful, and our customers love it."</p>
-                        <div class="flex items-center">
-                            <div class="h-12 w-12 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold text-lg">A</div>
-                            <div class="ml-4">
-                                <h4 class="font-semibold text-white text-lg">Asha K.</h4>
-                                <p class="text-sm text-gray-400">Local Business Owner</p>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                return;
-            }
-
-            snapshot.forEach(doc => {
-                const r = doc.data();
-                const initial = r.name.charAt(0).toUpperCase();
-                const html = `
-                    <div class="bg-gray-800 p-8 rounded-lg border border-gray-700 fade-in-section is-visible">
-                        <i class="fas fa-quote-left text-4xl accent-blue mb-4"></i>
-                        <p class="text-gray-300 italic mb-6">"${r.text}"</p>
-                        <div class="flex items-center">
-                            <div class="h-12 w-12 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-lg">${initial}</div>
-                            <div class="ml-4">
-                                <h4 class="font-semibold text-white text-lg">${r.name}</h4>
-                                <p class="text-sm text-gray-400">${r.role}</p>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                reviewsGrid.innerHTML += html;
-            });
-        });
-
-        // 3. Handle Review Form
-        const reviewModal = document.getElementById('review-modal');
-        const reviewForm = document.getElementById('review-form');
-        const writeReviewBtn = document.getElementById('write-review-btn');
-        const cancelReviewBtn = document.getElementById('cancel-review-btn');
-
-        writeReviewBtn.addEventListener('click', () => { reviewModal.style.display = 'flex'; });
-        cancelReviewBtn.addEventListener('click', () => { reviewModal.style.display = 'none'; });
-
-        reviewForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = document.getElementById('reviewer-name').value;
-            const role = document.getElementById('reviewer-role').value;
-            const text = document.getElementById('reviewer-text').value;
-            
-            const btn = e.target.querySelector('button[type="submit"]');
-            const originalText = btn.textContent;
-            btn.textContent = "Submitting...";
-            btn.disabled = true;
-
-            try {
-                await addDoc(collection(db, "reviews"), {
-                    name, role, text, createdAt: new Date()
-                });
-                reviewModal.style.display = 'none';
-                reviewForm.reset();
-                alert("Thank you for your review!");
-            } catch (error) {
-                console.error("Review error:", error);
-                alert("Error submitting review. Please try again.");
-            } finally {
-                btn.textContent = originalText;
-                btn.disabled = false;
-            }
-        });
-
-    </script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        function updateSimulation(val) {
+            // 1. Update the Water Height
+            const waterDiv = document.getElementById('waterLevel');
+            waterDiv.style.height = val + "%";
+
+            // 2. Update the Text
+            document.getElementById('percentText').innerText = val;
             
-            // --- Preloader ---
-            const preloader = document.getElementById('preloader');
-            window.addEventListener('load', () => {
-                setTimeout(() => {
-                    preloader.classList.add('loaded');
-                }, 1250); 
-            });
+            // 3. Fake the Distance Calculation (just for demo)
+            // Assuming tank is 150cm deep
+            let fakeDist = 150 - (150 * (val / 100));
+            document.getElementById('distText').innerText = Math.round(fakeDist);
 
-            // --- Sticky Header ---
-            const header = document.getElementById('header');
-            let lastScrollY = window.scrollY;
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 100) {
-                    header.classList.add('bg-[#0a0a0a]/80', 'backdrop-blur-sm', 'shadow-lg');
-                    if (window.scrollY > lastScrollY) {
-                        header.style.transform = 'translateY(-100%)';
-                    } else {
-                        header.style.transform = 'translateY(0)';
-                    }
-                    lastScrollY = window.scrollY;
-                } else {
-                    header.classList.remove('bg-[#0a0a0a]/80', 'backdrop-blur-sm', 'shadow-lg');
-                    header.style.transform = 'translateY(0)';
-                }
-            });
-            
-            // --- CSS Scroll Animations ---
-            const sections = document.querySelectorAll('.fade-in-section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                    }
-                });
-            }, { threshold: 0.1 });
+            // 4. Update Status Text & Color Logic
+            const statusText = document.getElementById('statusText');
+            const percentText = document.getElementById('percentText');
 
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-
-            // --- Timeline Animation ---
-            const timelineItems = document.querySelectorAll('.timeline-item');
-            const timelineObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                    }
-                });
-            }, { threshold: 0.5 });
-            
-            timelineItems.forEach(item => {
-                timelineObserver.observe(item);
-            });
-
-            // --- Service Card Mouse Glow Effect ---
-            const cards = document.querySelectorAll('.service-card');
-            cards.forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    card.style.setProperty('--x', `${(x / rect.width) * 100}%`);
-                    card.style.setProperty('--y', `${(y / rect.height) * 100}%`);
-                });
-            });
-
-            // --- Mobile Menu Toggle ---
-            const menuBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const iconOpen = document.getElementById('menu-icon-open');
-            const iconClose = document.getElementById('menu-icon-close');
-            const mobileLinks = mobileMenu.querySelectorAll('a');
-
-            function toggleMenu() {
-                mobileMenu.classList.toggle('hidden');
-                iconOpen.classList.toggle('hidden');
-                iconClose.classList.toggle('hidden');
-            }
-
-            menuBtn.addEventListener('click', toggleMenu);
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', toggleMenu);
-            });
-
-
-            // --- Smooth Scrolling for ALL anchor links ---
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') {
-                        e.preventDefault();
-                        return;
-                    }
-                    
-                    if (targetId && targetId.startsWith('#')) {
-                        e.preventDefault();
-                        try {
-                            const targetElement = document.querySelector(targetId);
-                            if (targetElement) {
-                                targetElement.scrollIntoView({
-                                    behavior: 'smooth'
-                                });
-                            }
-                        } catch (error) {
-                            console.warn("Invalid selector:", targetId);
-                        }
-                    }
-                });
-            });
-            
-            // --- Custom Cursor Logic for Desktop Only ---
-            const cursorFollower = document.querySelector('.cursor-follower');
-            const interactiveElements = document.querySelectorAll('a, button, .magnetic-item, .service-card');
-            
-            if (window.matchMedia("(hover: hover)").matches) {
-                gsap.set(cursorFollower, { xPercent: -50, yPercent: -50 });
-                let mouseX = 0, mouseY = 0;
-                window.addEventListener('mousemove', e => {
-                    mouseX = e.clientX;
-                    mouseY = e.clientY;
-                    gsap.to(cursorFollower, 0.3, { x: mouseX, y: mouseY, ease: "power2.out" });
-                });
-
-                interactiveElements.forEach(el => {
-                    el.addEventListener('mouseenter', () => cursorFollower.classList.add('hovered'));
-                    el.addEventListener('mouseleave', () => cursorFollower.classList.remove('hovered'));
-                });
+            if (val < 20) {
+                // Low Level Logic
+                waterDiv.classList.add('low-level'); // Turns Red
+                statusText.innerText = "Refill Needed";
+                statusText.classList.add('critical-text');
+                percentText.classList.add('critical-text');
             } else {
-                // Hide cursor on non-hover devices (mobile/tablet)
-                if(cursorFollower) cursorFollower.style.display = 'none';
+                // Normal Logic
+                waterDiv.classList.remove('low-level'); // Back to Blue
+                statusText.innerText = "Normal";
+                statusText.classList.remove('critical-text');
+                percentText.classList.remove('critical-text');
             }
 
-        });
+            if (val > 95) {
+                statusText.innerText = "Tank Full";
+            }
+        }
     </script>
 </body>
 </html>
