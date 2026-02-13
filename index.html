@@ -3,229 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Water Level Monitor</title>
+    <title>Encrypted Message 🔒</title>
     <style>
-        /* --- CSS STYLES --- */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+        :root {
+            --primary: #bb86fc;
+            --secondary: #03dac6;
+            --bg: #121212;
+            --surface: #1e1e1e;
         }
 
-        /* Phone Container */
-        .app-container {
-            width: 350px;
-            height: 650px;
-            background: white;
-            border-radius: 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            overflow: hidden;
-            position: relative;
+        body {
+            background-color: var(--bg);
+            color: #ffffff;
+            font-family: 'Courier New', Courier, monospace;
             display: flex;
             flex-direction: column;
-            border: 8px solid #333;
-        }
-
-        /* Header */
-        .header {
-            background-color: #fff;
-            padding: 20px;
-            text-align: center;
-            z-index: 10;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .header h2 {
-            margin: 0;
-            color: #333;
-            font-size: 18px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .status-dot {
-            height: 10px;
-            width: 10px;
-            background-color: #4CAF50;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 5px;
-        }
-
-        /* The Tank Visualization */
-        .tank-wrapper {
-            flex: 1;
-            display: flex;
-            justify-content: center;
             align-items: center;
-            background: #f9f9f9;
-            position: relative;
-        }
-
-        .tank-glass {
-            width: 180px;
-            height: 280px;
-            border: 4px solid #e0e0e0;
-            background: white;
-            border-radius: 15px;
-            position: relative;
-            overflow: hidden; /* Clips the water inside */
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
-        }
-
-        /* The Water Liquid */
-        .water {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 50%; /* Default starting level */
-            background: linear-gradient(180deg, #4facfe 0%, #00f2fe 100%);
-            transition: height 0.5s ease-out, background 0.5s;
-        }
-
-        /* The Wave Animation on top of water */
-        .water::before {
-            content: "";
-            position: absolute;
-            width: 200%;
-            height: 20px;
-            background-color: rgba(255, 255, 255, 0.4);
-            top: -10px;
-            left: -50%;
-            border-radius: 40%;
-            animation: wave 3s infinite linear;
-        }
-
-        @keyframes wave {
-            0% { transform: translateX(0) rotate(0deg); }
-            100% { transform: translateX(25%) rotate(360deg); }
-        }
-
-        /* Data Overlay */
-        .percentage-display {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 48px;
-            font-weight: bold;
-            color: #333;
-            text-shadow: 0 2px 5px rgba(255,255,255,0.8);
-            z-index: 5;
-        }
-        
-        .percentage-symbol { font-size: 20px; color: #666; }
-
-        /* Footer Info */
-        .info-panel {
-            padding: 20px;
-            background: white;
-            border-top: 1px solid #eee;
-        }
-
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 14px;
-            color: #666;
-        }
-        
-        .info-value { font-weight: bold; color: #333; }
-
-        /* Simulation Slider (Remove this in final ESP code) */
-        .simulation-controls {
-            padding: 15px;
-            background: #eee;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
             text-align: center;
+            user-select: none;
         }
-        input[type=range] { width: 100%; cursor: pointer; }
-        .sim-label { font-size: 12px; color: #777; margin-bottom: 5px; display: block;}
 
-        /* Color States */
-        .low-level { background: linear-gradient(180deg, #ff9a9e 0%, #fecfef 100%) !important; }
-        .critical-text { color: #d32f2f !important; }
+        /* Glitch Effect Class */
+        .glitch {
+            position: relative;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
 
+        /* The Button */
+        .decrypt-btn {
+            background: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+            padding: 15px 40px;
+            font-family: inherit;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .decrypt-btn:hover {
+            background: var(--secondary);
+            color: var(--bg);
+            box-shadow: 0 0 20px var(--secondary);
+        }
+
+        /* The Golden Ticket Card */
+        .ticket-container {
+            display: none;
+            perspective: 1000px;
+        }
+
+        .ticket {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #000;
+            width: 300px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+            animation: float 3s ease-in-out infinite;
+            text-align: center;
+            border: 2px dashed #000;
+        }
+
+        .ticket h2 { margin: 0; font-size: 1.8rem; letter-spacing: -1px; }
+        .ticket .choco-icon { font-size: 4rem; margin: 10px 0; display: block; }
+        .ticket p { font-size: 0.9rem; font-weight: bold; margin: 5px 0; }
+        
+        .validity {
+            background: #000;
+            color: #FFD700;
+            padding: 5px;
+            font-size: 0.7rem;
+            display: inline-block;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 0.7rem;
+            color: #444;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+        }
+
+        @keyframes scan {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+
+        .loader {
+            height: 2px;
+            background: var(--secondary);
+            width: 0;
+            margin-bottom: 20px;
+            transition: width 2s;
+        }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
-        <div class="header">
-            <div><span class="status-dot" id="connStatus"></span> <span id="connText">Online</span></div>
-            <h2>Main Tank</h2>
-        </div>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-        <div class="tank-wrapper">
-            <div class="tank-glass">
-                <div class="percentage-display">
-                    <span id="percentText">50</span><span class="percentage-symbol">%</span>
-                </div>
-                <div class="water" id="waterLevel"></div>
-            </div>
-        </div>
-
-        <div class="info-panel">
-            <div class="info-row">
-                <span>Status</span>
-                <span class="info-value" id="statusText">Normal</span>
-            </div>
-            <div class="info-row">
-                <span>Distance</span>
-                <span class="info-value"><span id="distText">60</span> cm</span>
-            </div>
-            <div class="info-row">
-                <span>Last Updated</span>
-                <span class="info-value">Just now</span>
-            </div>
-        </div>
-
-        <div class="simulation-controls">
-            <span class="sim-label">Simulation Slider (Test the UI)</span>
-            <input type="range" min="0" max="100" value="50" id="simSlider" oninput="updateSimulation(this.value)">
-        </div>
+    <div id="screen1">
+        <div class="glitch" id="greeting">DETECTING USER...</div>
+        <div class="loader" id="loader"></div>
+        <button class="decrypt-btn" onclick="decryptMsg()">[ ACCESS DATA ]</button>
     </div>
 
-    <script>
-        function updateSimulation(val) {
-            // 1. Update the Water Height
-            const waterDiv = document.getElementById('waterLevel');
-            waterDiv.style.height = val + "%";
-
-            // 2. Update the Text
-            document.getElementById('percentText').innerText = val;
+    <div id="screen2" class="ticket-container">
+        <div class="ticket">
+            <h2>LUMINA GIFT CARD</h2>
+            <span class="choco-icon">🍫</span>
+            <p>IOU: ONE REAL CHOCOLATE</p>
+            <p style="font-size: 0.8rem; opacity: 0.8;">(Dairy Milk / Galaxy / KitKat)</p>
             
-            // 3. Fake the Distance Calculation (just for demo)
-            // Assuming tank is 150cm deep
-            let fakeDist = 150 - (150 * (val / 100));
-            document.getElementById('distText').innerText = Math.round(fakeDist);
+            <div class="validity">VALID AFTER: MODEL EXAMS</div>
+        </div>
+        <p style="margin-top: 20px; color: #888; font-size: 0.8rem;">Happy Valentine's Day! ✨<br>Study well.</p>
+    </div>
 
-            // 4. Update Status Text & Color Logic
-            const statusText = document.getElementById('statusText');
-            const percentText = document.getElementById('percentText');
+    <div class="footer">SECURE CONNECTION // LUMINA v2.0</div>
 
-            if (val < 20) {
-                // Low Level Logic
-                waterDiv.classList.add('low-level'); // Turns Red
-                statusText.innerText = "Refill Needed";
-                statusText.classList.add('critical-text');
-                percentText.classList.add('critical-text');
-            } else {
-                // Normal Logic
-                waterDiv.classList.remove('low-level'); // Back to Blue
-                statusText.innerText = "Normal";
-                statusText.classList.remove('critical-text');
-                percentText.classList.remove('critical-text');
-            }
+    <script>
+        // 1. Get Name from URL (?name=Evana)
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get('name') || "Topper"; // Default to 'Topper' if no name
+        
+        // 2. Typing Effect for Greeting
+        const greetingElement = document.getElementById('greeting');
+        greetingElement.innerText = `HELLO ${name.toUpperCase()}...`;
 
-            if (val > 95) {
-                statusText.innerText = "Tank Full";
-            }
+        function decryptMsg() {
+            const btn = document.querySelector('.decrypt-btn');
+            const loader = document.getElementById('loader');
+            
+            // UI Feedback
+            btn.innerHTML = "UNPACKING...";
+            btn.style.borderColor = "#bb86fc";
+            btn.style.color = "#bb86fc";
+            loader.style.width = "200px";
+
+            // Delay for "Processing" feel
+            setTimeout(() => {
+                document.getElementById('screen1').style.display = 'none';
+                document.getElementById('screen2').style.display = 'block';
+                fireConfetti();
+            }, 1500);
+        }
+
+        function fireConfetti() {
+            var duration = 3 * 1000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#FFD700', '#FFA500'] // Gold colors
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#bb86fc', '#ffffff'] // Purple/White
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
         }
     </script>
 </body>
