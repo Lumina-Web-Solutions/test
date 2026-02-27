@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance of EEE Department</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <div class="logo">
+                <span style="color: var(--primary)">✦</span> Attendance of EEE Department
+                <span id="hw-status-badge" style="
+                    font-size: 0.7rem; 
+                    background: #334155; 
+                    padding: 0.2rem 0.5rem; 
+                    border-radius: 12px; 
+                    margin-left: 1rem;
+                    text-transform: uppercase;
+                    cursor: pointer;
+                " onclick="connectToScanner()">Scanner Offline</span>
+                <span id="hw-ip-display" style="
+                    font-size: 0.7rem; 
+                    color: var(--text-muted);
+                    margin-left: 0.5rem;
+                "></span>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 1.5rem">
+                <button class="btn btn-secondary" onclick="navigate('reports')">Reports</button>
+
+                <div class="user-profile">
+                    <span style="color: var(--text-muted)">Prof. Smith</span>
+                    <div class="avatar"></div>
+                </div>
+            </div>
+        </header>
+
+        <main id="main-content">
+            <!-- Content will be injected by script.js -->
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <!-- Add Class Modal -->
+    <div id="add-class-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h2 style="margin-top: 0">Create New Class</h2>
+            <div class="form-group">
+                <label>Class Name</label>
+                <input type="text" id="new-class-name" class="form-control" placeholder="e.g. Physics 101">
+            </div>
+            <div class="form-group">
+                <label>Time</label>
+                <input type="text" id="new-class-time" class="form-control" placeholder="e.g. 10:00 AM">
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeModal('add-class-modal')">Cancel</button>
+                <button class="btn" onclick="submitNewClass()">Create Class</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manage Students Modal -->
+    <div id="manage-students-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h2 style="margin-top: 0">Add Students</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem">
+                Paste student names below. One name per line or separated by comma.
+            </p>
+            <div class="form-group">
+                <textarea id="bulk-students-input" class="form-control" rows="8" placeholder="Alice
+Bob
+Charlie"></textarea>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeModal('manage-students-modal')">Cancel</button>
+                <button class="btn" onclick="submitNewStudents()">Add Students</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
